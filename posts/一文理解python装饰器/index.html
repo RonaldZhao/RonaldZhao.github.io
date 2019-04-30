@@ -1,0 +1,360 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="Ronald Zhao">
+
+<meta name="description" content="">
+
+<title>一文理解Python装饰器</title>
+<meta name="generator" content="Hugo 0.55.4" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="https://ronaldzhao.top//css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    
+    <h3 class="home-link"><a href="/">Root</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">Ronald Zhao&#39;s Blog - Most recent posts</h3>
+        <ul>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/">Win10全局配置pypi源</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/%E5%B0%86hugo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0github/">将Hugo博客部署到Github</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/functools.wraps%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8/">functools.wraps装饰器的作用</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/python%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/">Python变量的作用域</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/python%E9%9D%A2%E8%AF%95%E9%A2%98%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/">Python面试题收集整理</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E5%AE%89%E8%A3%85chocolatey%E5%92%8Cvim/">Win10安装Chocolatey和Vim</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E4%B8%8B%E5%AE%89%E8%A3%85mysql8.0.11.zip/">Win10下安装MySQL8.0.11</a></li>
+            
+            <li><a href="https://ronaldzhao.top/about/">About Me</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/yield_from/">yield from</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/yield%E5%92%8Cgenerator/">yield和generator</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div id="tags" class="open">
+        <h3 data-open="tags">Tags</h3>
+        <ul class="tags">
+            
+            <li><a href="/tags/generator">generator</a></li>
+            
+            <li><a href="/tags/hugo">hugo</a></li>
+            
+            <li><a href="/tags/mysql">mysql</a></li>
+            
+            <li><a href="/tags/python">python</a></li>
+            
+            <li><a href="/tags/vim">vim</a></li>
+            
+            <li><a href="/tags/vs-code">vs-code</a></li>
+            
+            <li><a href="/tags/yield">yield</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div id="categories" class="open">
+        <h3 data-open="categories">Categories</h3>
+        <ul class="categories">
+            
+            <li><a href="/categories/golang">golang</a></li>
+            
+            <li><a href="/categories/python">python</a></li>
+            
+            <li><a href="/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">开发环境</a></li>
+            
+            <li><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></li>
+            
+            <li><a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98">面试题</a></li>
+            
+        </ul>
+    </div>
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+<h1>一文理解Python装饰器</h1>
+<h4>Published 04-20-2019 22:14:01</h4>
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-share-button" data-href="https://ronaldzhao.top/posts/%E4%B8%80%E6%96%87%E7%90%86%E8%A7%A3python%E8%A3%85%E9%A5%B0%E5%99%A8/" data-layout="button"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en-US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<article>
+    
+
+<blockquote>
+<p>原文链接: <a href="https://foofish.net/python-decorator.html">理解 Python 装饰器看这一篇就够了</a></p>
+</blockquote>
+
+<h2 id="python-装饰器是什么">Python 装饰器是什么?</h2>
+
+<p>举个栗子:</p>
+
+<p>我们都知道内裤的主要功能是用来遮羞, 但是到了冬天它无法防风御寒. 咋办? 一个办法就是把内裤改造得又长又厚. 但同时又有个问题, 它本质上已经不是一条内裤了, 而成了长裤. 于是聪明的做法是在内裤外面再穿一条长裤. 这样内裤便还是内裤, 而且通过套在外面的长裤达到了保暖的作用. <code>装饰器</code>就如同这里的长裤, 可以在不改变内裤的前提下增加额外的功能.</p>
+
+<p>正确理解 Python 装饰器前, 还要明白一件事: Python 中的函数和 C++, Java 中的函数不大一样. Python 中的函数可以像普通变量一样当作参数传递给另一个函数, 例如:</p>
+
+<pre><code class="language-python">def param():
+    print('this is function param()')
+
+def f(p):
+    p()
+
+f()
+</code></pre>
+
+<p>Python 装饰器本质上就是一个 Python 函数或类, 它可以让其他函数或类在不改变代码的前提下增加额外的功能. Python 装饰器的返回值也是一个函数或类对象.</p>
+
+<p>Python 装饰器经常用于有切面需求的场景, 比如: 插入日志, 性能测试, 事务处理, 缓存, 权限校验等场景, Python 装饰器是解决这类问题的绝佳设计. 有了 Python 装饰器, 我们就可以抽离出大量与函数功能本身无关的雷同代码到装饰器中并继续重用. 概括地讲, Python 装饰器的作用就是在不改动现有对象的前提下为其增加功能.</p>
+
+<p>一个简单的例子:</p>
+
+<pre><code class="language-python">def f():
+    print('this is function f()')
+</code></pre>
+
+<p>现在有一个新的需求: 希望可以记录下函数的执行日志. 于是可以这么改:</p>
+
+<pre><code class="language-python">def f():
+    print('this is function f()')
+    logging.info('function f() is running.')
+</code></pre>
+
+<p>这是需求只涉及到一个函数的情况(很简单). 但是如果需求涉及到大量的函数, 如果再这样做的话就会造成大量的雷同代码. 于是为了减少重复书写雷同代码的愚蠢行为, 我们可以重新定义一个新的函数用来专门处理日志, 日志处理完毕之后再执行真正的业务代码:</p>
+
+<pre><code class="language-python">def use_logging(f):
+    logging.warn('{0} is running.'.format(f.__name__))
+    f()
+
+def f():
+    print('this is function f()')
+
+use_logging(f)
+</code></pre>
+
+<p>这样逻辑上没有问题, 需求也实现了, 但是我们在调用的时候已经不再是调用真正的业务逻辑<code>f()</code>函数了, 而是换成了<code>use_logging()</code>函数, 这样就破坏了原有的代码结构, 现在我们不得不每次都要把原来的那个<code>f()</code>函数作为参数传递给<code>use_logging()</code>函数&hellip;</p>
+
+<p>于是, Python 装饰器横空出世.</p>
+
+<h2 id="简单装饰器-装饰无参函数">简单装饰器(装饰无参函数)</h2>
+
+<pre><code class="language-python">def use_logging(func):
+    def wrapper():
+        logging.warn('{0} is running.'.format(f.__name__))
+        return func()
+    return wrapper
+
+def f():
+    print('this is function f()')
+
+f = use_logging(f)
+f()
+</code></pre>
+
+<p>这里的<code>use_logging()</code>函数就是一个装饰器, 它是一个普通的函数, 它把真正执行业务逻辑的函数<code>f()</code>包裹在其中, 于是<code>f()</code>函数看起来就像被<code>use_logging()</code>装饰了一样. <code>use_logging()</code>返回的也是一个函数, 这个函数的名字叫<code>wrapper</code>.</p>
+
+<p>在这个例子中, 函数进入和退出时, 被称为一个横切面, 所以这种编程方式被称为面向切面的编程.</p>
+
+<h2 id="语法糖">@语法糖</h2>
+
+<p><code>@</code>符号是 Python 装饰器的语法糖, 它放在函数开始定义(即<code>def</code>)的上方, 这样就可以省略最后一步对函数重新赋值的操作.</p>
+
+<pre><code class="language-python">def use_logging(func):
+    def wrapper():
+        logging.warn('{0} is running.'.format(f.__name__))
+        return func()
+    return wrapper
+
+@use_logging
+def f():
+    print('this is function f()')
+
+f()
+</code></pre>
+
+<p>如上所示, 有了<code>@</code>, 我们就可以省去<code>f = use_logging(f)</code>这一行了, 直接调用<code>f()</code>即可得到想要的结果.</p>
+
+<p>从这个例子也可以看出, <code>f()</code>函数不需要做任何的修改, 只需要在定义的地方加上装饰器, 调用方式依然不变. 如果有其他的类似函数, 我们就可以继续调用装饰器来修饰函数, 而不用重复修改函数或增加新的封装. 这样, 我们就提高了程序的可重用性, 并增加了程序的可读性.</p>
+
+<h2 id="args-kwargs"><code>*args</code>, <code>**kwargs</code></h2>
+
+<p>对于无参数的函数, 以上装饰器已经可以达成所需了. 但是当业务逻辑函数带有参数的时候, 就要对装饰器稍加修改了. 比如:</p>
+
+<pre><code class="language-python{2,4}">def use_logging(func):
+    def wrapper(name):
+        logging.warn('{0} is running.'.format(f.__name__))
+        return func(name)
+    return wrapper
+
+@use_logging
+def f(name):
+    print('i am {0}'.format(name))
+
+f('ronald')
+</code></pre>
+
+<p>但是这只能适用于参数个数固定为一个的情况, 对于多个参数甚至参数个数不固定的函数, 就要使用<code>*args</code>来代替:</p>
+
+<pre><code class="language-python{2,4}">def use_logging(func):
+    def wrapper(*args):
+        logging.warn('{0} is running.'.format(f.__name__))
+        return func(*args)
+    return wrapper
+
+@use_logging
+def f(name, age):
+    print('my name is {0} and i am {1} years old.'.format(name, age))
+
+f('ronald')
+</code></pre>
+
+<p>但是对于关键字参数, <code>*args</code>也是无能为力的, 所以就需要继续加上<code>**kwargs</code>了:</p>
+
+<pre><code class="language-python{2,4}">def use_logging(func):
+    def wrapper(*args, **kwargs):
+        logging.warn('{0} is running.'.format(f.__name__))
+        return func(*args, **kwargs)
+    return wrapper
+
+@use_logging
+def f(name, age, height=None):
+    print('my name is {0} and i am {1} years old.'.format(name, age))
+
+f('ronald')
+</code></pre>
+
+<h2 id="带参数的装饰器">带参数的装饰器</h2>
+
+<p>Python 装饰器还有更大的灵活性, 例如带参数的装饰器. 在上面的装饰器调用中, 该装饰器接收的唯一参数就是执行业务的<code>f</code>函数. 装饰器的语法允许我们在调用时提供其他参数, 比如<code>@decorator(a)</code>. 这样, 就为装饰器的编写和使用提供了更大的灵活性. 比如, 我们可以在装饰器中指定日志的等级, 因为不同的业务函数可能需要的日志等级是不一样的:</p>
+
+<pre><code class="language-python">def use_logging(level):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            if level == 'warn':
+                logging.warn('{0} is running.'.format(func.__name__))
+            elif level == 'info':
+                logging.info('{0} is running.'.format(func.__name__))
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+
+@use_logging(level='warn')
+def f(name='ronald'):
+    print('i am {0}'.format(name))
+
+f()
+</code></pre>
+
+<p>上面的<code>use_logging</code>是允许带参数的装饰器. 它实际上是对原装饰器的一个函数封装, 并返回一个装饰器. 我们可以将它理解为一个含有参数的闭包. 当我们使用<code>@use_logging(level='warn')</code>调用的时候, Python 能够发现这一层的封装, 并把参数传递到装饰器的环境中.</p>
+
+<h2 id="类装饰器">类装饰器</h2>
+
+<p>Python 装饰器不仅可以是函数, 还可以是类. 相比函数装饰器, 类装饰器具有灵活度大, 高内聚, 封装性等优点. 使用类装饰器主要依靠类的<code>__call__</code>方法, 当使用<code>@</code>形式将装饰器附加到函数上时, 就会自动调用此方法:</p>
+
+<pre><code class="language-python">class F(object):
+    def __init__(self, func):
+        self.func = func
+
+    def __call__(self):
+        print('class decorator is running...')
+        self.func()
+        print('class decorator ended.')
+
+@F
+def f():
+    print('function f().')
+
+f()
+</code></pre>
+
+<!-- ## functools.wraps
+
+使用装饰器极大地复用了代码, 但是有一个缺点就是原函数的元信息不见了. 比如函数的`docstring`, `__name__`, 参数列表, 如下例:
+
+```python
+def logged(func):
+    def with_logging(*args, **kwargs):
+        print(func.__name__)
+        print(func.__doc__)
+        return func(*args, **kwargs)
+    return with_logging
+
+@logged
+def f(x):
+   """does some math"""
+   return x + x * x
+
+f(5)
+​``` -->
+
+<h2 id="装饰器顺序">装饰器顺序</h2>
+
+<p>一个函数可以同时被多个装饰器修饰, 如:</p>
+
+<pre><code class="language-python">@a
+@b
+@c
+def f():
+    pass
+</code></pre>
+
+<p>它的执行顺序是从里到外(或者说从近到远), 即最先调用最里层的装饰器, 等效于:</p>
+
+<pre><code class="language-python">f = a(b(c(f)))
+</code></pre>
+
+</article>
+
+
+
+</div>
+</div>
+<script src="https://ronaldzhao.top//js/theme.min.js" type="text/javascript"></script>
+
+
+</body>
+</html>
+

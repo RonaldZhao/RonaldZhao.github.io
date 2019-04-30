@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="Ronald Zhao">
+
+<meta name="description" content="">
+
+<title>Vim</title>
+<meta name="generator" content="Hugo 0.55.4" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="https://ronaldzhao.top//css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    
+    <h3 class="home-link"><a href="/">Root</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">Ronald Zhao&#39;s Blog - Most recent posts</h3>
+        <ul>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/">Win10全局配置pypi源</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/%E5%B0%86hugo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0github/">将Hugo博客部署到Github</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/functools.wraps%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8/">functools.wraps装饰器的作用</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/python%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/">Python变量的作用域</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/python%E9%9D%A2%E8%AF%95%E9%A2%98%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/">Python面试题收集整理</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E5%AE%89%E8%A3%85chocolatey%E5%92%8Cvim/">Win10安装Chocolatey和Vim</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E4%B8%8B%E5%AE%89%E8%A3%85mysql8.0.11.zip/">Win10下安装MySQL8.0.11</a></li>
+            
+            <li><a href="https://ronaldzhao.top/about/">About Me</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/yield_from/">yield from</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/yield%E5%92%8Cgenerator/">yield和generator</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div id="tags" class="open">
+        <h3 data-open="tags">Tags</h3>
+        <ul class="tags">
+            
+            <li><a href="/tags/generator">generator</a></li>
+            
+            <li><a href="/tags/hugo">hugo</a></li>
+            
+            <li><a href="/tags/mysql">mysql</a></li>
+            
+            <li><a href="/tags/python">python</a></li>
+            
+            <li><a href="/tags/vim">vim</a></li>
+            
+            <li><a href="/tags/vs-code">vs-code</a></li>
+            
+            <li><a href="/tags/yield">yield</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div id="categories" class="open">
+        <h3 data-open="categories">Categories</h3>
+        <ul class="categories">
+            
+            <li><a href="/categories/golang">golang</a></li>
+            
+            <li><a href="/categories/python">python</a></li>
+            
+            <li><a href="/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">开发环境</a></li>
+            
+            <li><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></li>
+            
+            <li><a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98">面试题</a></li>
+            
+        </ul>
+    </div>
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+
+<div class="articles-list">
+    
+    <article>
+        <h3><a href="https://ronaldzhao.top/posts/win10%E5%AE%89%E8%A3%85chocolatey%E5%92%8Cvim/">Win10安装Chocolatey和Vim</a> - 2019-04-20 23:07:44</h3>
+        参考: Installing Chocolatey
+ 说明 安装环境:
+ OS: windows 10 专业版 1803(OS Build 17134.228) 终端: PowerShell 2.0(在控制面板-&gt;程序-&gt;启用或关闭xxx中开启)   warning: 请使用管理员权限打开PowerShell
+ 安装Chocolatey  打开PowerShell后请先执行Get-ExecutionPolicy确保返回的不是Restricted, 如果是请执行Set-ExecutionPolicy AllSigned或Set-ExecutionPolicy Bypass -Scope Process.
+ 拷贝如下命令并执行:
+  PS C:\Windows\system32&gt; Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) Getting latest version of the Chocolatey package for download. Getting Chocolatey from https://chocolatey.org/api/v2/package/chocolatey/0.10.11. Downloading 7-Zip commandline tool prior to extraction. Extracting C:\Users\xxx\AppData\Local\Temp\chocolatey\chocInstall\chocolatey.zip to C:\Users\zzgda\AppData\Local\Temp\chocolatey\chocInstall... Installing chocolatey on this machine Creating ChocolateyInstall as an environment variable (targeting 'Machine') Setting ChocolateyInstall to 'C:\ProgramData\chocolatey' WARNING: It's very likely you will need to close and reopen your shell before you can use choco.
+    </article>
+    
+</div>
+
+
+</div>
+</div>
+<script src="https://ronaldzhao.top//js/theme.min.js" type="text/javascript"></script>
+
+
+</body>
+</html>
+

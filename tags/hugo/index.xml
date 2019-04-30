@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on Ronald Zhao&#39;s Blog</title>
+    <link>https://ronaldzhao.top/tags/hugo/</link>
+    <description>Recent content in Hugo on Ronald Zhao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 21 Apr 2019 20:58:10 +0800</lastBuildDate>
+    
+	<atom:link href="https://ronaldzhao.top/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>将Hugo博客部署到Github</title>
+      <link>https://ronaldzhao.top/posts/%E5%B0%86hugo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0github/</link>
+      <pubDate>Sun, 21 Apr 2019 20:58:10 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/%E5%B0%86hugo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0github/</guid>
+      <description>创建仓库 创建两个Github仓库：
+一个仓库名任意（如blog），用来保存Hugo博客项目的所有源文件，创建好后git clone到本地。
+另一个仓库名必须为YOUR_GITHUB_USER_NAME.github.io，创建好后在博客根目录执行git submodule add -b master YOUR_PROJECT_URL.git public。
+本地项目管理 本地博客项目以后即为上面克隆下来的第一个仓库的目录（如在第一个仓库的根目录执行hugo new posts/test.md等）。
+生成博客静态文件命令为hugo -D（官方文档中是直接执行hugo命令，经过我个人测试在win10系统中不能生成静态文件，*nix中暂未测试），静态文件会生成到上面克隆下来的public文件夹中。
+推送到Github 在public目录中执行git add . -&amp;gt; git commit -m &amp;quot;your message&amp;quot; -&amp;gt; git push origin master同步博客静态文件项目。
+在博客根目录执行上面相同命令同步博客源文件。
+自定义域名 在博客根目录的static目录中添加一个CNAME文件，文件中填写your_site.xxx或www.your_site.xxx。
+开启HTTPS 到YOUR_USER_NAME.github.io项目的设置中勾选上Enforce HTTPS即可。</description>
+    </item>
+    
+  </channel>
+</rss>

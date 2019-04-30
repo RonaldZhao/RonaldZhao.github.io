@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>开发环境 on Ronald Zhao&#39;s Blog</title>
+    <link>https://ronaldzhao.top/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+    <description>Recent content in 开发环境 on Ronald Zhao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 30 Apr 2019 15:18:26 +0800</lastBuildDate>
+    
+	<atom:link href="https://ronaldzhao.top/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Win10全局配置pypi源</title>
+      <link>https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/</link>
+      <pubDate>Tue, 30 Apr 2019 15:18:26 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/</guid>
+      <description>Steps cd %APPDATA% mkdir pip  新建文件pip.ini然后添加（以阿里云的源为例）：
+[global] index-url = https://mirrors.aliyun.com/pypi/simple/ [install] trusted-host=mirrors.aliyun.com  Done.</description>
+    </item>
+    
+    <item>
+      <title>Win10安装Chocolatey和Vim</title>
+      <link>https://ronaldzhao.top/posts/win10%E5%AE%89%E8%A3%85chocolatey%E5%92%8Cvim/</link>
+      <pubDate>Sat, 20 Apr 2019 23:07:44 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/win10%E5%AE%89%E8%A3%85chocolatey%E5%92%8Cvim/</guid>
+      <description>参考: Installing Chocolatey
+ 说明 安装环境:
+ OS: windows 10 专业版 1803(OS Build 17134.228) 终端: PowerShell 2.0(在控制面板-&amp;gt;程序-&amp;gt;启用或关闭xxx中开启)   warning: 请使用管理员权限打开PowerShell
+ 安装Chocolatey  打开PowerShell后请先执行Get-ExecutionPolicy确保返回的不是Restricted, 如果是请执行Set-ExecutionPolicy AllSigned或Set-ExecutionPolicy Bypass -Scope Process.
+ 拷贝如下命令并执行:
+  PS C:\Windows\system32&amp;gt; Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;)) Getting latest version of the Chocolatey package for download. Getting Chocolatey from https://chocolatey.org/api/v2/package/chocolatey/0.10.11. Downloading 7-Zip commandline tool prior to extraction. Extracting C:\Users\xxx\AppData\Local\Temp\chocolatey\chocInstall\chocolatey.zip to C:\Users\zzgda\AppData\Local\Temp\chocolatey\chocInstall... Installing chocolatey on this machine Creating ChocolateyInstall as an environment variable (targeting &#39;Machine&#39;) Setting ChocolateyInstall to &#39;C:\ProgramData\chocolatey&#39; WARNING: It&#39;s very likely you will need to close and reopen your shell before you can use choco.</description>
+    </item>
+    
+    <item>
+      <title>使用VSCode搭建Python开发环境</title>
+      <link>https://ronaldzhao.top/posts/%E4%BD%BF%E7%94%A8vscode%E6%90%AD%E5%BB%BApython%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Sat, 20 Apr 2019 22:24:23 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/%E4%BD%BF%E7%94%A8vscode%E6%90%AD%E5%BB%BApython%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+      <description>参考文章：How to use VS Code for your Python projects
+ 0. 安装 python 插件 不出意外的话就是popular中的第一名.
+1. 约定项目虚拟环境保存位置 个人约定为项目下的.venv目录.
+2. 全局安装flake8(代码提示) 执行pip install -U flake8.
+安装后windows中flake8.exe和你的python.exe在同一目录.
+3. 全局安装black(格式化代码)  为什么选择black：Auto formatters for Python
+ 执行pip install -U black.
+安装后windows中black.exe和你的python.exe在同一目录.
+配置好后格式化文件的快捷键是Alt+Shift+F.
+4. 修改settings.json文件  warning: 注意其中涉及到的目录如果不同要按照自己的修改.
+ { &amp;quot;files.autoSave&amp;quot;: &amp;quot;afterDelay&amp;quot;, &amp;quot;editor.renderWhitespace&amp;quot;: &amp;quot;boundary&amp;quot;, &amp;quot;workbench.iconTheme&amp;quot;: &amp;quot;vscode-icons&amp;quot;,// vscode-icons插件 &amp;quot;workbench.colorTheme&amp;quot;: &amp;quot;One Dark Pro&amp;quot;,// One Dark Pro主题 &amp;quot;python.pythonPath&amp;quot;: &amp;quot;${workspaceRoot}\\.venv\\Scripts\\python.exe&amp;quot;, &amp;quot;python.formatting.provider&amp;quot;: &amp;quot;black&amp;quot;, &amp;quot;python.formatting.blackPath&amp;quot;: &amp;quot;D:\\softwares\\Python36\\Scripts\\black.exe&amp;quot;, &amp;quot;python.formatting.blackArgs&amp;quot;: [&amp;quot;--line-length=80&amp;quot;], &amp;quot;editor.</description>
+    </item>
+    
+  </channel>
+</rss>

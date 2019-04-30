@@ -1,0 +1,454 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="Ronald Zhao">
+
+<meta name="description" content="">
+
+<title>yield和generator</title>
+<meta name="generator" content="Hugo 0.55.4" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="https://ronaldzhao.top//css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    
+    <h3 class="home-link"><a href="/">Root</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">Ronald Zhao&#39;s Blog - Most recent posts</h3>
+        <ul>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/">Win10全局配置pypi源</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/%E5%B0%86hugo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0github/">将Hugo博客部署到Github</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/functools.wraps%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8/">functools.wraps装饰器的作用</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/python%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/">Python变量的作用域</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/python%E9%9D%A2%E8%AF%95%E9%A2%98%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/">Python面试题收集整理</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E5%AE%89%E8%A3%85chocolatey%E5%92%8Cvim/">Win10安装Chocolatey和Vim</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E4%B8%8B%E5%AE%89%E8%A3%85mysql8.0.11.zip/">Win10下安装MySQL8.0.11</a></li>
+            
+            <li><a href="https://ronaldzhao.top/about/">About Me</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/yield_from/">yield from</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/yield%E5%92%8Cgenerator/">yield和generator</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div id="tags" class="open">
+        <h3 data-open="tags">Tags</h3>
+        <ul class="tags">
+            
+            <li><a href="/tags/generator">generator</a></li>
+            
+            <li><a href="/tags/hugo">hugo</a></li>
+            
+            <li><a href="/tags/mysql">mysql</a></li>
+            
+            <li><a href="/tags/python">python</a></li>
+            
+            <li><a href="/tags/vim">vim</a></li>
+            
+            <li><a href="/tags/vs-code">vs-code</a></li>
+            
+            <li><a href="/tags/yield">yield</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div id="categories" class="open">
+        <h3 data-open="categories">Categories</h3>
+        <ul class="categories">
+            
+            <li><a href="/categories/golang">golang</a></li>
+            
+            <li><a href="/categories/python">python</a></li>
+            
+            <li><a href="/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">开发环境</a></li>
+            
+            <li><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></li>
+            
+            <li><a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98">面试题</a></li>
+            
+        </ul>
+    </div>
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+<h1>yield和generator</h1>
+<h4>Published 04-20-2019 22:46:34</h4>
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-share-button" data-href="https://ronaldzhao.top/posts/yield%E5%92%8Cgenerator/" data-layout="button"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en-US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<article>
+    
+
+<blockquote>
+<p>原文来源：<a href="http://python.jobbole.com/87613/">提高你的Python: 解释 yield 和 Generators（生成器）</a></p>
+</blockquote>
+
+<h2 id="协程与子例程">协程与子例程</h2>
+
+<p>我们调用一个普通的Python函数时，一般是从函数的第一行代码开始执行，结束于<code>return</code>语句、异常或者函数结束(其实是一个默认的<code>return None</code>)。一旦函数将控制权交还给调用者，就意味着函数的全部结束。函数中做的所有工作以及保存在局部变量中的数据将全部丢失。再次调用这个函数时，一切都将重新创建。</p>
+
+<p>对于在计算机编程中所讨论的函数，这是很标准的流程。这样的函数只能返回一个值，不过，有时可以创建能产生一个序列的函数还是有帮助的。要做到这一点，这种函数要能够&rdquo;保存自己的工作&rdquo;。</p>
+
+<p>能够&rdquo;产生一个序列&rdquo;是因为我们的函数并没有像通常意义上那样返回。<code>return</code>隐含的意思是函数正将执行代码的控制权返回给函数被调用的地方。而<code>yield</code>的隐含意思是此控制权的转移是&rdquo;临时的&rdquo;和&rdquo;自愿的&rdquo;，此函数将来还会回收控制权。</p>
+
+<p>在Python中，拥有这种能力的&rdquo;函数&rdquo;被称为&rdquo;生成器&rdquo;。它是非常有用的。生成器(以及yield语句)最初的引入是为了让程序员可以更简单的编写用来产生值的序列的代码。以前，要实现类似随机数生成器的东西，需要实现一个类或者一个模块，在生成数据的同时保持对每次调用之间状态的跟踪。但引入生成器之后这就变得十分简单了。</p>
+
+<p>为了更好的理解生成器所解决的问题，让我们来看一个例子。在了解这个例子的过程中，请始终记住我们需要解决的问题：生成值的序列。</p>
+
+<blockquote>
+<p>注意: 在Python之外，最简单的生成器应该是被称为协程（coroutines）的东西。在本文中，我将使用这个术语。请记住，在Python的概念中，这里提到的协程就是生成器。Python正式的术语是生成器；协程只是便于讨论，在语言层面并没有正式定义。</p>
+</blockquote>
+
+<h2 id="例子-有趣的素数">例子：有趣的素数</h2>
+
+<p>假设你的老板让你写一个函数，输入参数是一个<code>int</code>的<code>list</code>，返回一个可以迭代的包含素数的结果。</p>
+
+<blockquote>
+<p>注意: <a href="http://docs.python.org/3/glossary.html#term-iterable">迭代器</a>只是对象每次返回特定成员的一种能力。</p>
+</blockquote>
+
+<p>你认为这很简单，稍加思索就能写出下面的代码：</p>
+
+<pre><code class="language-python">def get_primes(input_list):
+    result_list = list()
+    for element in input_list:
+        if is_prime(element):
+            result_list.append(element)
+    return result_list
+
+# 或者这样写
+def get_primes(input_list):
+    return (element for element in input_list if is_prime(element))
+
+# 下面是is_prime的一中实现
+def is_prime(number):
+    if number &gt; 1:
+        if number == 2:
+            return True
+        if number % 2 == 0:
+            return False
+        for current in range(3, int(math.sqrt(number) + 1), 2):
+            if current % number == 0:
+                return False
+        return True
+    return False
+
+</code></pre>
+
+<p>上面<code>is_prime</code>的实现完全满足了需要，所以可以告诉老板任务完成了。然后老板反馈说&rdquo;函数工作正常，good job&rdquo;。</p>
+
+<p><strong>处理无限序列</strong></p>
+
+<p>真的如此吗？过了几天，老板过来再次反馈说她遇到了一些问题：她打算把<code>get_primes</code>函数用于一个很大的包含数字的<code>list</code>。实际上，这个<code>list</code>非常大，仅仅是创建这个<code>list</code>就会用完系统的所有内存。为此，她希望能够在调用<code>get_primes</code>函数时带上一个<code>start</code>参数，返回所有大于这个参数的素数。</p>
+
+<p>显然，只是简单的修改<code>get_primes</code>函数是不可能的。因为我们不可能返回包含从<code>start</code>到无穷的所有素数的列表。看上去用普通函数处理这个问题的可能性比较渺茫。</p>
+
+<p>在放弃之前，先确定一下最核心的障碍。通过思考，可以得出这样的结论：函数只有一次返回结果的机会，因而必须一次返回所有的结果。得出这样的结论似乎毫无意义；“函数不就是这样工作的么”，通常我们都这么认为的。可是，不学不成，不问不知，“如果它们并非如此呢？”</p>
+
+<p>想象一下，如果<code>get_primes</code>可以只是简单返回下一个值，而不是一次返回全部的值，我们能做什么？我们就不再需要创建列表。没有列表，就没有内存的问题。由于老板告诉我们的是，她只需要遍历结果，她不会知道我们实现上的区别。</p>
+
+<p>不幸的是，这样做看上去似乎不太可能。即使是我们有神奇的函数，可以让我们从n遍历到无限大，我们也会在返回第一个值之后卡住：</p>
+
+<pre><code class="language-python">def get_primes(start):
+    for element in magical_infinite_range(start):
+        if is_prime(element):
+            return element
+
+</code></pre>
+
+<p>假设这样去调用get_primes：</p>
+
+<pre><code class="language-python">def solve_number_10():
+    # She *is* working on Project Euler #10, I knew it!
+    total = 2
+    for next_prime in get_primes(3):
+        if next_prime &lt; 2000000:
+            total += next_prime
+        else:
+            print(total)
+            return
+
+</code></pre>
+
+<p>显然，在get_primes中，一上来就会碰到输入等于3的，并且在函数的第4行返回。与直接返回不同，我们需要的是在退出时可以为下一次请求准备一个值。</p>
+
+<p>不过函数做不到这一点。当函数返回时，意味着全部完成。我们保证函数可以再次被调用，但是我们没法保证说，“呃，这次从上次退出时的第4行开始执行，而不是常规的从第一行开始”。函数只有一个单一的入口：函数的第1行代码。</p>
+
+<h2 id="走进生成器">走进生成器</h2>
+
+<p>这类问题极其常见以至于Python专门加入了一个结构来解决它：生成器。一个生成器会“生成”值。创建一个生成器几乎和生成器函数的原理一样简单。</p>
+
+<p>一个生成器函数的定义很像一个普通的函数，除了当它要生成一个值的时候，使用<code>yield</code>关键字而不是<code>return</code>。如果一个<code>def</code>的主体包含<code>yield</code>，这个函数会自动变成一个生成器（即使它包含一个<code>return</code>）。除了以上内容，创建一个生成器没有什么多余步骤了。</p>
+
+<p>生成器函数返回生成器的迭代器。这可能是你最后一次见到“生成器的迭代器”这个术语了， 因为它们通常就被称作“生成器”。要注意的是生成器就是一类特殊的迭代器。作为一个迭代器，生成器必须要定义一些方法(method)，其中一个就是<code>__next__()</code>。如同迭代器一样，我们可以使用<code>next()</code>函数来获取下一个值。</p>
+
+<p>为了从生成器获取下一个值，我们使用<code>next()</code>函数，就像对付迭代器一样。</p>
+
+<p>(<code>next()</code>会操心如何调用生成器的<code>__next__()</code>方法)。既然生成器是一个迭代器，它可以被用在for循环中。</p>
+
+<p>每当生成器被调用的时候，它会返回一个值给调用者。在生成器内部使用<code>yield</code>来完成这个动作(例如<code>yield 7</code>)。为了记住<code>yield</code>到底干了什么，最简单的方法是把它当作专门给生成器函数用的特殊的<code>return</code>(加上点小魔法)。</p>
+
+<p><strong><code>yield</code>就是专门给生成器用的<code>return</code>(加上点小魔法)。</strong></p>
+
+<p>下面是一个简单的生成器函数：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; def simple_generator_function():
+&gt;&gt;&gt;     yield 1
+&gt;&gt;&gt;     yield 2
+&gt;&gt;&gt;     yield 3
+&gt;&gt;&gt;
+</code></pre>
+
+<p>这里有两个简单的方法来使用它：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; for value in simple_generator_function():
+&gt;&gt;&gt;     print(value)
+1
+2
+3
+&gt;&gt;&gt; our_generator = simple_generator_function()
+&gt;&gt;&gt; next(our_generator)
+1
+&gt;&gt;&gt; next(our_generator)
+2
+&gt;&gt;&gt; next(our_generator)
+3
+</code></pre>
+
+<h2 id="魔法">魔法？</h2>
+
+<p>那么神奇的部分在哪里?当一个生成器函数调用<code>yield</code>，生成器函数的“状态”会被冻结，所有的变量的值会被保留下来，下一行要执行的代码的位置也会被记录，直到再次调用<code>next()</code>。一旦<code>next()</code>再次被调用，生成器函数会从它上次离开的地方开始。如果永远不调用<code>next()</code>，<code>yield</code>保存的状态就被无视了。</p>
+
+<p>我们来重写<code>get_primes()</code>函数，这次我们把它写作一个生成器。注意我们不再需要<code>magical_infinite_range</code>函数了。使用一个简单的<code>while</code>循环，我们创造了自己的无穷串列。</p>
+
+<pre><code class="language-python">def get_primes(number):
+    while True:
+        if is_prime(number):
+            yield number
+        number += 1
+
+</code></pre>
+
+<p>如果生成器函数调用了<code>return</code>，或者执行到函数的末尾，会出现一个<code>StopIteration</code>异常。 这会通知<code>next()</code>的调用者这个生成器没有下一个值了(这就是普通迭代器的行为)。这也是这个<code>while</code>循环在我们的<code>get_primes()</code>函数出现的原因。如果没有这个<code>while</code>，当我们第二次调用<code>next()</code>的时候，生成器函数会执行到函数末尾，触发<code>StopIteration</code>异常。一旦生成器的值用完了，再调用<code>next()</code>就会出现错误，所以你只能将每个生成器的使用一次。下面的代码是错误的：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; our_generator = simple_generator_function()
+&gt;&gt;&gt; for value in our_generator:
+&gt;&gt;&gt;     print(value)
+
+&gt;&gt;&gt; # 我们的生成器没有下一个值了...
+&gt;&gt;&gt; print(next(our_generator))
+Traceback (most recent call last):
+  File &quot;&lt;ipython-input-13-7e48a609051a&gt;&quot;, line 1, in &lt;module&gt;
+    next(our_generator)
+StopIteration
+
+&gt;&gt;&gt; # 然而，我们总可以再创建一个生成器
+&gt;&gt;&gt; # 只需再次调用生成器函数即可
+
+&gt;&gt;&gt; new_generator = simple_generator_function()
+&gt;&gt;&gt; print(next(new_generator)) # 工作正常
+1
+</code></pre>
+
+<p>因此，这个<code>while</code>循环是用来确保生成器函数永远也不会执行到函数末尾的。只要调用<code>next()</code>这个生成器就会生成一个值。这是一个处理无穷序列的常见方法（这类生成器也是很常见的）。</p>
+
+<h2 id="执行流程">执行流程</h2>
+
+<p>让我们回到调用<code>get_primes</code>的地方：<code>solve_number_10</code>。</p>
+
+<pre><code class="language-python">def solve_number_10():
+    total = 2
+    for next_prime in get_primes(3):
+        if next_prime &lt; 2000000:
+            total += next_prime
+        else:
+            print(total)
+            return
+
+</code></pre>
+
+<p>我们来看一下<code>solve_number_10</code>的<code>for</code>循环中对<code>get_primes</code>的调用，观察一下前几个元素是如何创建的有助于我们的理解。当<code>for</code>循环从<code>get_primes</code>请求第一个值时，我们进入<code>get_primes</code>，这时与进入普通函数没有区别。</p>
+
+<ol>
+<li>进入<code>while</code>循环</li>
+<li>停在<code>if</code>条件判断（<code>3</code>是素数）</li>
+<li>通过<code>yield</code>将<code>3</code>和执行控制权返回给<code>solve_number_10</code></li>
+</ol>
+
+<p>接下来，回到<code>solve_number_10</code>：</p>
+
+<ol>
+<li><code>for</code>循环得到返回值<code>3</code></li>
+<li><code>for</code>循环将其赋给<code>next_prime</code></li>
+<li><code>total</code>加上<code>next_prime</code></li>
+<li><code>for</code>循环从<code>get_primes</code>请求下一个值</li>
+</ol>
+
+<p>这次，进入<code>get_primes</code>时并没有从开头执行，而是从上次离开的地方。</p>
+
+<pre><code class="language-python">def get_primes(number):
+    while True:
+        if is_prime(number):
+            yield number
+        number += 1 
+
+</code></pre>
+
+<p>最关键的是，<code>number</code>还保持我们上次调用<code>yield</code>时的值（例如<code>3</code>）。记住，<code>yield</code>会将值传给<code>next()</code>的调用方，同时还会保存生成器函数的“状态”。接下来，<code>number</code>加到<code>4</code>，回到<code>while</code>循环的开始处，然后继续增加直到得到下一个素数（<code>5</code>）。我们再一次把<code>number</code>的值通过<code>yield</code>返回给<code>solve_number_10</code>的<code>for</code>循环。这个周期会一直执行，直到<code>for</code>循环结束（得到的素数大于2000000）。</p>
+
+<h2 id="更给力点">更给力点</h2>
+
+<p>在<a href="http://www.python.org/dev/peps/pep-0342/">PEP 342</a>中加入了将值传给生成器的支持。而且能让生成器在单一语句中实现，生成一个值（像从前一样），接受一个值，或同时生成一个值并接受一个值。</p>
+
+<p>我们用前面那个关于素数的函数来展示如何将一个值传给生成器。这一次，我们不再简单地生成比某个数大的素数，而是找出比某个数的等比级数大的最小素数（例如10， 我们要生成比10，100，1000，10000 … 大的最小素数）。我们从<code>get_primes</code>开始：</p>
+
+<pre><code class="language-python">def print_successive_primes(iterations, base=10):
+    # 像普通函数一样，生成器函数可以接受一个参数
+   
+    prime_generator = get_primes(base)
+    # 这里以后要加上点什么
+    for power in range(iterations):
+        # 这里以后要加上点什么
+ 
+def get_primes(number):
+    while True:
+        if is_prime(number):
+        # 这里怎么写?
+
+</code></pre>
+
+<p><code>get_primes</code>的后几行需要着重解释。<code>yield</code>关键字返回<code>number</code>的值，而像<code>other = yield foo</code>这样的语句的意思是，&rdquo;返回<code>foo</code>的值，这个值返回给调用者的同时，将<code>other</code>的值也设置为那个值&rdquo;。你可以通过<code>send</code>方法来将一个值&rdquo;发送&rdquo;给生成器。</p>
+
+<pre><code class="language-python">def get_primes(number):
+    while True:
+        if is_prime(number):
+            number = yield number
+        number += 1
+
+</code></pre>
+
+<p>通过这种方式，我们可以在每次执行<code>yield</code>的时候为<code>number</code>设置不同的值。现在我们可以补齐<code>print_successive_primes</code>中缺少的那部分代码：</p>
+
+<pre><code class="language-python">def print_successive_primes(iterations, base=10):
+    prime_generator = get_primes(base)
+    prime_generator.send(None)
+    for power in range(iterations):
+        print(prime_generator.send(base ** power))
+
+</code></pre>
+
+<p>这里有两点需要注意：首先，我们打印的是<code>generator.send</code>的结果，这是没问题的，因为send在发送数据给生成器的同时还返回生成器通过<code>yield</code>生成的值（就如同生成器中<code>yield</code>语句做的那样）。</p>
+
+<p>第二点，看一下<code>prime_generator.send(None)</code>这一行，当你用<code>send</code>来&rdquo;启动&rdquo;一个生成器时（就是从生成器函数的第一行代码执行到第一个<code>yield</code>语句的位置），你必须发送<code>None</code>。这不难理解，根据刚才的描述，生成器还没有走到第一个<code>yield</code>语句，如果我们发生一个真实的值，这时是没有人去&rdquo;接收&rdquo;它的。一旦生成器启动了，我们就可以像上面那样发送数据了。</p>
+
+<h2 id="综述">综述</h2>
+
+<p>在本文章的后半部分，我们将讨论了一些<code>yield</code>的高级用法及其效果。<code>yield</code>已经成为Python最强大的关键字之一。现在我们已经对<code>yield</code>是如何工作的有了充分的理解，我们已经有了必要的知识，可以去了解<code>yield</code>的一些更&rdquo;费解&rdquo;的应用场景。</p>
+
+<p>不管你信不信，我们其实只是揭开了<code>yield</code>强大能力的一角。例如，<code>send</code>确实如前面说的那样工作，但是在像我们的例子这样，只是生成简单的序列的场景下，<code>send</code>几乎从来不会被用到。下面贴一段代码，展示<code>send</code>通常的使用方式。对于这段代码如何工作以及为何可以这样工作，在此并不多说，它将作为第二部分很不错的热身。</p>
+
+<pre><code class="language-python">import random
+ 
+def get_data():
+    &quot;&quot;&quot;返回0到9之间的3个随机数&quot;&quot;&quot;
+    return random.sample(range(10), 3)
+ 
+def consume():
+    &quot;&quot;&quot;显示每次传入的整数列表的动态平均值&quot;&quot;&quot;
+    running_sum = 0
+    data_items_seen = 0
+ 
+    while True:
+        data = yield
+        data_items_seen += len(data)
+        running_sum += sum(data)
+        print('The running average is {}'.format(running_sum / float(data_items_seen)))
+ 
+def produce(consumer):
+    &quot;&quot;&quot;产生序列集合，传递给消费函数（consumer）&quot;&quot;&quot;
+    while True:
+        data = get_data()
+        print('Produced {}'.format(data))
+        consumer.send(data)
+        yield
+ 
+if __name__ == '__main__':
+    consumer = consume()
+    consumer.send(None)
+    producer = produce(consumer)
+ 
+    for _ in range(10):
+        print('Producing...')
+        next(producer)
+
+</code></pre>
+
+<p>最后，希望您可以从本文的讨论中获得一些关键的思想：</p>
+
+<ul>
+<li>generator是用来产生一系列值的</li>
+<li><code>yield</code>则像是generator函数的返回结果</li>
+<li><code>yield</code>唯一所做的另一件事就是保存一个generator函数的状态</li>
+<li>generator就是一个特殊类型的迭代器（iterator）</li>
+<li>和迭代器相似，我们可以通过使用<code>next()</code>来从generator中获取下一个值</li>
+<li>通过隐式地调用<code>next()</code>来忽略一些值</li>
+</ul>
+
+</article>
+
+
+
+</div>
+</div>
+<script src="https://ronaldzhao.top//js/theme.min.js" type="text/javascript"></script>
+
+
+</body>
+</html>
+

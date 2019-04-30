@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据库 on Ronald Zhao&#39;s Blog</title>
+    <link>https://ronaldzhao.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in 数据库 on Ronald Zhao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 20 Apr 2019 23:04:43 +0800</lastBuildDate>
+    
+	<atom:link href="https://ronaldzhao.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Win10下安装MySQL8.0.11</title>
+      <link>https://ronaldzhao.top/posts/win10%E4%B8%8B%E5%AE%89%E8%A3%85mysql8.0.11.zip/</link>
+      <pubDate>Sat, 20 Apr 2019 23:04:43 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/win10%E4%B8%8B%E5%AE%89%E8%A3%85mysql8.0.11.zip/</guid>
+      <description>环境 OS: Windows10 1709(内部版本16299.371)
+MySQL: 8.0.11(点击即可下载)
+安装目录: D:\softwares\mysql-8.0.11
+Step 0 将MySQL安装目录的bin目录(如我的是：D:\softwares\mysql-8.0.11\bin)加入系统环境变量。
+Step 1 Windows系统中MySQL默认的配置文件是安装目录中的my.ini文件，解压后应该是不存在的，所以在安装目录中创建此文件并填入如下内容：
+[mysqld] # 设置端口号为3306 port = 3306 # 设置MySQL的安装目录，注意路径必须是两个&#39;\&#39; basedir = D:\\softwares\\mysql-8.0.11 # 设置MySQL数据库数据的存放目录，不存在的话会自动创建，注意路径必须是两个&#39;\&#39; datadir = D:\\softwares\\mysql-8.0.11\\data # 设置允许的最大连接数 max_connections = 200 # 设置允许连接失败的次数，防止恶意攻击 max_connect_errors = 10 # 设置服务器端默认使用的字符集 character-set-server = utf8mb4 # 设置创建表时默认的存储引擎 default-storage-engine = INNODB # 设置认证方式。因为从MySQL8.0.4开始，MySQL的密码认证插件是“caching_sha2_password”，但是这种方式目前很多客户端工具都不支持，所以改为&amp;quot;mysql_native_password&amp;quot;的老方式。 default_authentication_plugin = mysql_native_password [mysql] # 设置MySQL客户端的默认字符集 default-character-set = utf8mb4 [client] # 设置MySQL客户端连接服务器时默认使用的端口和字符集 port = 3306 default-character-set = utf8mb4  Step 2 初始化数据库: 以管理员权限打开CMD或Power Shell，然后执行mysqld --initialize。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>generator on Ronald Zhao&#39;s Blog</title>
+    <link>https://ronaldzhao.top/tags/generator/</link>
+    <description>Recent content in generator on Ronald Zhao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 20 Apr 2019 22:46:34 +0800</lastBuildDate>
+    
+	<atom:link href="https://ronaldzhao.top/tags/generator/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>yield和generator</title>
+      <link>https://ronaldzhao.top/posts/yield%E5%92%8Cgenerator/</link>
+      <pubDate>Sat, 20 Apr 2019 22:46:34 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/yield%E5%92%8Cgenerator/</guid>
+      <description>原文来源：提高你的Python: 解释 yield 和 Generators（生成器）
+ 协程与子例程 我们调用一个普通的Python函数时，一般是从函数的第一行代码开始执行，结束于return语句、异常或者函数结束(其实是一个默认的return None)。一旦函数将控制权交还给调用者，就意味着函数的全部结束。函数中做的所有工作以及保存在局部变量中的数据将全部丢失。再次调用这个函数时，一切都将重新创建。
+对于在计算机编程中所讨论的函数，这是很标准的流程。这样的函数只能返回一个值，不过，有时可以创建能产生一个序列的函数还是有帮助的。要做到这一点，这种函数要能够&amp;rdquo;保存自己的工作&amp;rdquo;。
+能够&amp;rdquo;产生一个序列&amp;rdquo;是因为我们的函数并没有像通常意义上那样返回。return隐含的意思是函数正将执行代码的控制权返回给函数被调用的地方。而yield的隐含意思是此控制权的转移是&amp;rdquo;临时的&amp;rdquo;和&amp;rdquo;自愿的&amp;rdquo;，此函数将来还会回收控制权。
+在Python中，拥有这种能力的&amp;rdquo;函数&amp;rdquo;被称为&amp;rdquo;生成器&amp;rdquo;。它是非常有用的。生成器(以及yield语句)最初的引入是为了让程序员可以更简单的编写用来产生值的序列的代码。以前，要实现类似随机数生成器的东西，需要实现一个类或者一个模块，在生成数据的同时保持对每次调用之间状态的跟踪。但引入生成器之后这就变得十分简单了。
+为了更好的理解生成器所解决的问题，让我们来看一个例子。在了解这个例子的过程中，请始终记住我们需要解决的问题：生成值的序列。
+ 注意: 在Python之外，最简单的生成器应该是被称为协程（coroutines）的东西。在本文中，我将使用这个术语。请记住，在Python的概念中，这里提到的协程就是生成器。Python正式的术语是生成器；协程只是便于讨论，在语言层面并没有正式定义。
+ 例子：有趣的素数 假设你的老板让你写一个函数，输入参数是一个int的list，返回一个可以迭代的包含素数的结果。
+ 注意: 迭代器只是对象每次返回特定成员的一种能力。
+ 你认为这很简单，稍加思索就能写出下面的代码：
+def get_primes(input_list): result_list = list() for element in input_list: if is_prime(element): result_list.append(element) return result_list # 或者这样写 def get_primes(input_list): return (element for element in input_list if is_prime(element)) # 下面是is_prime的一中实现 def is_prime(number): if number &amp;gt; 1: if number == 2: return True if number % 2 == 0: return False for current in range(3, int(math.</description>
+    </item>
+    
+  </channel>
+</rss>

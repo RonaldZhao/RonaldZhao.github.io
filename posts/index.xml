@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Ronald Zhao&#39;s Blog</title>
+    <link>https://ronaldzhao.top/posts/</link>
+    <description>Recent content in Posts on Ronald Zhao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 30 Apr 2019 15:18:26 +0800</lastBuildDate>
+    
+	<atom:link href="https://ronaldzhao.top/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Win10全局配置pypi源</title>
+      <link>https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/</link>
+      <pubDate>Tue, 30 Apr 2019 15:18:26 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/</guid>
+      <description>Steps cd %APPDATA% mkdir pip  新建文件pip.ini然后添加（以阿里云的源为例）：
+[global] index-url = https://mirrors.aliyun.com/pypi/simple/ [install] trusted-host=mirrors.aliyun.com  Done.</description>
+    </item>
+    
+    <item>
+      <title>将Hugo博客部署到Github</title>
+      <link>https://ronaldzhao.top/posts/%E5%B0%86hugo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0github/</link>
+      <pubDate>Sun, 21 Apr 2019 20:58:10 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/%E5%B0%86hugo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0github/</guid>
+      <description>创建仓库 创建两个Github仓库：
+一个仓库名任意（如blog），用来保存Hugo博客项目的所有源文件，创建好后git clone到本地。
+另一个仓库名必须为YOUR_GITHUB_USER_NAME.github.io，创建好后在博客根目录执行git submodule add -b master YOUR_PROJECT_URL.git public。
+本地项目管理 本地博客项目以后即为上面克隆下来的第一个仓库的目录（如在第一个仓库的根目录执行hugo new posts/test.md等）。
+生成博客静态文件命令为hugo -D（官方文档中是直接执行hugo命令，经过我个人测试在win10系统中不能生成静态文件，*nix中暂未测试），静态文件会生成到上面克隆下来的public文件夹中。
+推送到Github 在public目录中执行git add . -&amp;gt; git commit -m &amp;quot;your message&amp;quot; -&amp;gt; git push origin master同步博客静态文件项目。
+在博客根目录执行上面相同命令同步博客源文件。
+自定义域名 在博客根目录的static目录中添加一个CNAME文件，文件中填写your_site.xxx或www.your_site.xxx。
+开启HTTPS 到YOUR_USER_NAME.github.io项目的设置中勾选上Enforce HTTPS即可。</description>
+    </item>
+    
+    <item>
+      <title>functools.wraps装饰器的作用</title>
+      <link>https://ronaldzhao.top/posts/functools.wraps%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8/</link>
+      <pubDate>Sat, 20 Apr 2019 23:14:14 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/functools.wraps%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8/</guid>
+      <description>对比测试 先看一个未使用functools.wraps的装饰器:
+def time_consuming_deco(func): &amp;quot;&amp;quot;&amp;quot; 计算运行func函数所消耗的时间 &amp;quot;&amp;quot;&amp;quot; def wrapper(*args, **kwargs): start = time.time()*1000 func(*args, **kwargs) end = time.time()*1000 # 转换成毫秒 print(&#39;{0} time consuming: {1} ms&#39;.format(func.__name__, end - start)) return wrapper  下面使用上面的装饰器:
+@time_consuming_deco def f(): for i in range(1000000): pass f() print(&amp;quot;f.__name__ :&amp;quot;, f.__name__)  运行结果为:
+f time consuming: 22.99853515625 ms f.__name__ : wrapper  再看一个使用了functools.wraps的装饰器:
+def time_consuming_deco(func): &amp;quot;&amp;quot;&amp;quot; 还是上面计算运行func函数所消耗的时间的装饰器,只不过是用使用了functools.wraps &amp;quot;&amp;quot;&amp;quot; @functools.wraps(func) def wrapper(*args, **kwargs): start = time.time()*1000 func(*args, **kwargs) end = time.</description>
+    </item>
+    
+    <item>
+      <title>Python变量的作用域</title>
+      <link>https://ronaldzhao.top/posts/python%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/</link>
+      <pubDate>Sat, 20 Apr 2019 23:13:12 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/python%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/</guid>
+      <description>全局变量 即，在函数之外(如果是嵌套函数则是最外层函数之外)或在全局范围内声明的变量，全局变量可以在当前模块的任意之处访问。举个例子：
+x = &#39;我是全局变量&#39; def outer(): def inner(): def inner_inner(): print(x) inner_inner() print(x) inner() print(x) outer()  输出如下：
+&amp;gt;&amp;gt;&amp;gt; outer() 我是全局变量 我是全局变量 我是全局变量  由此便引出了一个问题：当我想在函数内部修改全局变量的时候怎么办？先试试再说：
+x = &#39;我是全局变量&#39; def update_outer_x(): x = &#39;我被修改了&#39; print(x) update_outer_x() print(x)  然而你会得到如下结果：
+&amp;gt;&amp;gt;&amp;gt; update_outer_x() 我被修改了 &amp;gt;&amp;gt;&amp;gt; print(x) 我是全局变量  外部的x并没有被真正修改，函数update_outer_x内部的x实际上被定义成了一个局部变量，而并没有修改外部x的值，执行内部的print的时候输出的也只是函数内部的x，所以没有达到修改全局变量x的目的。
+由此便有了global关键字：
+x = &#39;我是全局变量&#39; def update_outer_x(): global x x = &#39;我被修改了&#39; print(x) update_outer_x() print(x)  执行结果如下：
+&amp;gt;&amp;gt;&amp;gt; update_outer_x() 我被修改了 &amp;gt;&amp;gt;&amp;gt; print(x) 我被修改了  因此通过在函数内部使用global关键字，达到了在函数内部修改全局变量的目的。</description>
+    </item>
+    
+    <item>
+      <title>Python面试题收集整理</title>
+      <link>https://ronaldzhao.top/posts/python%E9%9D%A2%E8%AF%95%E9%A2%98%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sat, 20 Apr 2019 23:10:55 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/python%E9%9D%A2%E8%AF%95%E9%A2%98%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/</guid>
+      <description>Q：python这么好，说说它的特性吧 A：
+ python是解释型语言。即：它不需要编译，变运行便捷式； python是动态类型化的。即：当声明变量的时候，无需指定变量的类型； python非常适合面向对象编程。即：它允许定义类以及组合和继承； python没有访问修饰符； python中函数是一等对象(第一类对象)。即：函数可以在运行时动态创建；函数可以赋值给变量；函数可以作为参数传递给函数；函数可以作为返回值从函数返回； python容易上手，编码效率高，但比编译型语言运行速度慢。幸运的是，python允许包含基于C的扩展，所以瓶颈可以被优化掉。  Q： python中对象的赋值、浅拷贝、深拷贝的区别 A：
+ 对象的赋值  python中对象的赋值实际上是简单的对象的引用。即：当创建一个对象并将其赋值给一个变量的时候，python并没有拷贝这个对象，只是简单的把这个对象的引用赋值给变量。
+&amp;gt;&amp;gt;&amp;gt; list1 = [1,2,3,4] &amp;gt;&amp;gt;&amp;gt; list2 = list1 &amp;gt;&amp;gt;&amp;gt; print(list1, id(list1)) [1, 2, 3, 4] 4552843656 &amp;gt;&amp;gt;&amp;gt; print(list2, id(list2)) [1, 2, 3, 4] 4552843656 &amp;gt;&amp;gt;&amp;gt; list1.append(5) &amp;gt;&amp;gt;&amp;gt; print(list1, id(list1)) [1, 2, 3, 4, 5] 4552843656 &amp;gt;&amp;gt;&amp;gt; print(list2, id(list2)) [1, 2, 3, 4, 5] 4552843656   浅拷贝  一般使用copy.copy()可以进行对象的浅拷贝。但对于对象中的元素，它仍然使用原始的引用。
+&amp;gt;&amp;gt;&amp;gt; import copy &amp;gt;&amp;gt;&amp;gt; list1 = [1,2,3,4, [5,6,7,8]] &amp;gt;&amp;gt;&amp;gt; print(list1, id(list1)) [1, 2, 3, 4, [5, 6, 7, 8]] 4322790536 &amp;gt;&amp;gt;&amp;gt; list2 = copy.</description>
+    </item>
+    
+    <item>
+      <title>Win10安装Chocolatey和Vim</title>
+      <link>https://ronaldzhao.top/posts/win10%E5%AE%89%E8%A3%85chocolatey%E5%92%8Cvim/</link>
+      <pubDate>Sat, 20 Apr 2019 23:07:44 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/win10%E5%AE%89%E8%A3%85chocolatey%E5%92%8Cvim/</guid>
+      <description>参考: Installing Chocolatey
+ 说明 安装环境:
+ OS: windows 10 专业版 1803(OS Build 17134.228) 终端: PowerShell 2.0(在控制面板-&amp;gt;程序-&amp;gt;启用或关闭xxx中开启)   warning: 请使用管理员权限打开PowerShell
+ 安装Chocolatey  打开PowerShell后请先执行Get-ExecutionPolicy确保返回的不是Restricted, 如果是请执行Set-ExecutionPolicy AllSigned或Set-ExecutionPolicy Bypass -Scope Process.
+ 拷贝如下命令并执行:
+  PS C:\Windows\system32&amp;gt; Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;)) Getting latest version of the Chocolatey package for download. Getting Chocolatey from https://chocolatey.org/api/v2/package/chocolatey/0.10.11. Downloading 7-Zip commandline tool prior to extraction. Extracting C:\Users\xxx\AppData\Local\Temp\chocolatey\chocInstall\chocolatey.zip to C:\Users\zzgda\AppData\Local\Temp\chocolatey\chocInstall... Installing chocolatey on this machine Creating ChocolateyInstall as an environment variable (targeting &#39;Machine&#39;) Setting ChocolateyInstall to &#39;C:\ProgramData\chocolatey&#39; WARNING: It&#39;s very likely you will need to close and reopen your shell before you can use choco.</description>
+    </item>
+    
+    <item>
+      <title>Win10下安装MySQL8.0.11</title>
+      <link>https://ronaldzhao.top/posts/win10%E4%B8%8B%E5%AE%89%E8%A3%85mysql8.0.11.zip/</link>
+      <pubDate>Sat, 20 Apr 2019 23:04:43 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/win10%E4%B8%8B%E5%AE%89%E8%A3%85mysql8.0.11.zip/</guid>
+      <description>环境 OS: Windows10 1709(内部版本16299.371)
+MySQL: 8.0.11(点击即可下载)
+安装目录: D:\softwares\mysql-8.0.11
+Step 0 将MySQL安装目录的bin目录(如我的是：D:\softwares\mysql-8.0.11\bin)加入系统环境变量。
+Step 1 Windows系统中MySQL默认的配置文件是安装目录中的my.ini文件，解压后应该是不存在的，所以在安装目录中创建此文件并填入如下内容：
+[mysqld] # 设置端口号为3306 port = 3306 # 设置MySQL的安装目录，注意路径必须是两个&#39;\&#39; basedir = D:\\softwares\\mysql-8.0.11 # 设置MySQL数据库数据的存放目录，不存在的话会自动创建，注意路径必须是两个&#39;\&#39; datadir = D:\\softwares\\mysql-8.0.11\\data # 设置允许的最大连接数 max_connections = 200 # 设置允许连接失败的次数，防止恶意攻击 max_connect_errors = 10 # 设置服务器端默认使用的字符集 character-set-server = utf8mb4 # 设置创建表时默认的存储引擎 default-storage-engine = INNODB # 设置认证方式。因为从MySQL8.0.4开始，MySQL的密码认证插件是“caching_sha2_password”，但是这种方式目前很多客户端工具都不支持，所以改为&amp;quot;mysql_native_password&amp;quot;的老方式。 default_authentication_plugin = mysql_native_password [mysql] # 设置MySQL客户端的默认字符集 default-character-set = utf8mb4 [client] # 设置MySQL客户端连接服务器时默认使用的端口和字符集 port = 3306 default-character-set = utf8mb4  Step 2 初始化数据库: 以管理员权限打开CMD或Power Shell，然后执行mysqld --initialize。</description>
+    </item>
+    
+    <item>
+      <title>yield from</title>
+      <link>https://ronaldzhao.top/posts/yield_from/</link>
+      <pubDate>Sat, 20 Apr 2019 22:50:45 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/yield_from/</guid>
+      <description>参考文章1: Python中yield和yield from的用法
+参考文章2: python协程2：yield from 从入门到精通
+ yield from 基础 yield from是Python 3.3后新加的语言结构. 它表示当在生成器gen中使用yield from subgen时, subgen会获得控制权, 把产出的值传给gen的调用方, 即调用方可以直接控制subgen. 与此同时, gen会阻塞, 等待subgen终止.
+yield from可以用于简化for循环中的yield表达式. 例如:
+def gen(): for c in &#39;AB&#39;: yield c for i in range(1, 3): yield i list(gen()) # 下面是执行结果 [&#39;A&#39;, &#39;B&#39;, 1, 2]  可以改写(简化)为:
+def gen(): yield from &#39;AB&#39; yield from range(1, 3) list(gen()) # 下面是执行结果 [&#39;A&#39;, &#39;B&#39;, 1, 2]  下面来看一个复杂点的例子：源码来自Python cookbook 3</description>
+    </item>
+    
+    <item>
+      <title>yield和generator</title>
+      <link>https://ronaldzhao.top/posts/yield%E5%92%8Cgenerator/</link>
+      <pubDate>Sat, 20 Apr 2019 22:46:34 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/yield%E5%92%8Cgenerator/</guid>
+      <description>原文来源：提高你的Python: 解释 yield 和 Generators（生成器）
+ 协程与子例程 我们调用一个普通的Python函数时，一般是从函数的第一行代码开始执行，结束于return语句、异常或者函数结束(其实是一个默认的return None)。一旦函数将控制权交还给调用者，就意味着函数的全部结束。函数中做的所有工作以及保存在局部变量中的数据将全部丢失。再次调用这个函数时，一切都将重新创建。
+对于在计算机编程中所讨论的函数，这是很标准的流程。这样的函数只能返回一个值，不过，有时可以创建能产生一个序列的函数还是有帮助的。要做到这一点，这种函数要能够&amp;rdquo;保存自己的工作&amp;rdquo;。
+能够&amp;rdquo;产生一个序列&amp;rdquo;是因为我们的函数并没有像通常意义上那样返回。return隐含的意思是函数正将执行代码的控制权返回给函数被调用的地方。而yield的隐含意思是此控制权的转移是&amp;rdquo;临时的&amp;rdquo;和&amp;rdquo;自愿的&amp;rdquo;，此函数将来还会回收控制权。
+在Python中，拥有这种能力的&amp;rdquo;函数&amp;rdquo;被称为&amp;rdquo;生成器&amp;rdquo;。它是非常有用的。生成器(以及yield语句)最初的引入是为了让程序员可以更简单的编写用来产生值的序列的代码。以前，要实现类似随机数生成器的东西，需要实现一个类或者一个模块，在生成数据的同时保持对每次调用之间状态的跟踪。但引入生成器之后这就变得十分简单了。
+为了更好的理解生成器所解决的问题，让我们来看一个例子。在了解这个例子的过程中，请始终记住我们需要解决的问题：生成值的序列。
+ 注意: 在Python之外，最简单的生成器应该是被称为协程（coroutines）的东西。在本文中，我将使用这个术语。请记住，在Python的概念中，这里提到的协程就是生成器。Python正式的术语是生成器；协程只是便于讨论，在语言层面并没有正式定义。
+ 例子：有趣的素数 假设你的老板让你写一个函数，输入参数是一个int的list，返回一个可以迭代的包含素数的结果。
+ 注意: 迭代器只是对象每次返回特定成员的一种能力。
+ 你认为这很简单，稍加思索就能写出下面的代码：
+def get_primes(input_list): result_list = list() for element in input_list: if is_prime(element): result_list.append(element) return result_list # 或者这样写 def get_primes(input_list): return (element for element in input_list if is_prime(element)) # 下面是is_prime的一中实现 def is_prime(number): if number &amp;gt; 1: if number == 2: return True if number % 2 == 0: return False for current in range(3, int(math.</description>
+    </item>
+    
+    <item>
+      <title>不可不知的Python陷阱</title>
+      <link>https://ronaldzhao.top/posts/%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84python%E9%99%B7%E9%98%B1/</link>
+      <pubDate>Sat, 20 Apr 2019 22:34:22 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/%E4%B8%8D%E5%8F%AF%E4%B8%8D%E7%9F%A5%E7%9A%84python%E9%99%B7%E9%98%B1/</guid>
+      <description>注意: 以下内容全部基于python3
+ 断言语句 在python应用中使用assert语句来捕获不可能的条件是一个编程习惯：
+def verify_credentials(username, password): assert username and password, &#39;Credentials not supplied by caller&#39; ... authenticate possibly null user with null password ...  然而，当将源码编译成优化的字节码后(例如python -O)，python并不会为assert语句生成任何指令，编译器会默默地删除那些程序员写的让程序免受畸形数据攻击的代码，让应用暴露在攻击中。
+该漏洞的根本原因在于assert机制纯粹是为了测试的目的而设计的，正如在C++中的那样。所以程序员必须使用其他手段以保证数据的一致性。
+可重用整数 python中万物皆对象。每个对象都有一个唯一的标识符，可以使用id()函数来获取。要找出两个变量或两个属性是否都指向同一个对象，可以使用is操作符。整数也是对象，因此is操作符确实是为他们定义的：
+&amp;gt;&amp;gt;&amp;gt; 999+1 is 1000 False  如果上面的结果看起来令人诧异，那么记住，is操作符是在两个对象的标识符上工作的——它并不比较它们的数值或其他值。然而：
+&amp;gt;&amp;gt;&amp;gt; 1+1 is 2 True  很奇怪对不对？对该行为的解释是：python维护了一个对象连接池，其中保有前几百个整数(小整数)，重用它们会内存和对象的创建。更让人凌乱的是，&amp;rdquo;小整数&amp;rdquo;的定义在不同的python版本中并不相同。
+这里的应对措施是：绝对不要把is操作符用于值的比较上。is操作符是设计用来处理唯一对象标识符的。
+浮点数比较 由于固定且有限的精度，以及十进制与二进制小数表示所产生的差异，使用浮点数可能很复杂。混乱的一个常见原因是，浮点数比较有时可能会产生意想不到的结果，例如：
+&amp;gt;&amp;gt;&amp;gt; 2.2 * 3.0 == 3.3 * 2.0 False  上面结果的原因实际上是舍入错误：
+&amp;gt;&amp;gt;&amp;gt; (2.2 * 3.0).hex() &#39;0x1.a666666666667p+2&#39; &amp;gt;&amp;gt;&amp;gt; (3.3*2.0).hex() &#39;0x1.a666666666666p+2&#39;  一般来说，当重要的决定是基于算术运算的结果做出的，就必须要小心不要成为舍入错误的牺牲品。参见python文档中的Floating Point Arithmetic: Issues and Limitations章节。</description>
+    </item>
+    
+    <item>
+      <title>生成指定范围内的指定个数随机数的list</title>
+      <link>https://ronaldzhao.top/posts/%E7%94%9F%E6%88%90%E6%8C%87%E5%AE%9A%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E6%8C%87%E5%AE%9A%E4%B8%AA%E6%95%B0%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%9A%84list/</link>
+      <pubDate>Sat, 20 Apr 2019 22:25:45 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/%E7%94%9F%E6%88%90%E6%8C%87%E5%AE%9A%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E6%8C%87%E5%AE%9A%E4%B8%AA%E6%95%B0%E9%9A%8F%E6%9C%BA%E6%95%B0%E7%9A%84list/</guid>
+      <description> 代码实现  warning: 需要用到模块random 和 time
+ def generate_random_array(n=10, left=1, right=100): &amp;quot;&amp;quot;&amp;quot; :desc 生成一个具有n个随机整数的list, 每个元素的范围为[left, right] :type n: int, 要生成的随机数个数, 默认为10 :type left: int, 指定范围的最小值, 默认为1 :type right: int, 指定范围的最大值, 默认为100 :rtype: list, 返回一个list[int] &amp;quot;&amp;quot;&amp;quot; if n &amp;lt;= 0 or left &amp;gt; right: return [] ret = [] random.seed(time.time()) for i in range(n): ret.append(random.randint(left, right)) return ret  </description>
+    </item>
+    
+    <item>
+      <title>使用VSCode搭建Python开发环境</title>
+      <link>https://ronaldzhao.top/posts/%E4%BD%BF%E7%94%A8vscode%E6%90%AD%E5%BB%BApython%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Sat, 20 Apr 2019 22:24:23 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/%E4%BD%BF%E7%94%A8vscode%E6%90%AD%E5%BB%BApython%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+      <description>参考文章：How to use VS Code for your Python projects
+ 0. 安装 python 插件 不出意外的话就是popular中的第一名.
+1. 约定项目虚拟环境保存位置 个人约定为项目下的.venv目录.
+2. 全局安装flake8(代码提示) 执行pip install -U flake8.
+安装后windows中flake8.exe和你的python.exe在同一目录.
+3. 全局安装black(格式化代码)  为什么选择black：Auto formatters for Python
+ 执行pip install -U black.
+安装后windows中black.exe和你的python.exe在同一目录.
+配置好后格式化文件的快捷键是Alt+Shift+F.
+4. 修改settings.json文件  warning: 注意其中涉及到的目录如果不同要按照自己的修改.
+ { &amp;quot;files.autoSave&amp;quot;: &amp;quot;afterDelay&amp;quot;, &amp;quot;editor.renderWhitespace&amp;quot;: &amp;quot;boundary&amp;quot;, &amp;quot;workbench.iconTheme&amp;quot;: &amp;quot;vscode-icons&amp;quot;,// vscode-icons插件 &amp;quot;workbench.colorTheme&amp;quot;: &amp;quot;One Dark Pro&amp;quot;,// One Dark Pro主题 &amp;quot;python.pythonPath&amp;quot;: &amp;quot;${workspaceRoot}\\.venv\\Scripts\\python.exe&amp;quot;, &amp;quot;python.formatting.provider&amp;quot;: &amp;quot;black&amp;quot;, &amp;quot;python.formatting.blackPath&amp;quot;: &amp;quot;D:\\softwares\\Python36\\Scripts\\black.exe&amp;quot;, &amp;quot;python.formatting.blackArgs&amp;quot;: [&amp;quot;--line-length=80&amp;quot;], &amp;quot;editor.</description>
+    </item>
+    
+    <item>
+      <title>一文看懂Python闭包</title>
+      <link>https://ronaldzhao.top/posts/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82python%E9%97%AD%E5%8C%85/</link>
+      <pubDate>Sat, 20 Apr 2019 22:22:54 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82python%E9%97%AD%E5%8C%85/</guid>
+      <description>热身 函数作为第一类对象，它可以作为函数的返回值返回，现在我们来考虑如下的例子：
+def print_msg(): # print_msg 是外围函数 msg = &amp;quot;zen of python&amp;quot; def printer(): # printer 是嵌套函数 print(msg) return printer another = print_msg() # 输出 zen of python another()  这段代码不同的地方在于内部函数printer直接作为返回值返回了。
+一般情况下，函数中的局部变量仅在函数的执行期间可用，一旦print_msg()执行过后，我们会认为msg变量将不再可用。然而，在这里我们发现print_msg执行完之后，在调用another的时候msg变量的值正常输出了，这就是闭包的作用。闭包使得局部变量在函数外被访问成为可能。
+这里的another就是一个闭包，闭包本质上是一个函数，它有两部分组成，printer函数和变量msg。闭包使得这些变量的值始终保存在内存中。
+闭包，顾名思义，就是一个封闭的包裹，里面包裹着自由变量，就像在类里面定义的属性值一样，自由变量的可见范围随同包裹，哪里可以访问到这个包裹，哪里就可以访问到这个自由变量。
+为什么要使用闭包？ 闭包避免了使用全局变量，此外，闭包允许将函数与其所操作的某些数据（环境）关连起来。这一点与面向对象编程是非常类似的，在面对象编程中，对象允许我们将某些数据（对象的属性）与一个或者多个方法相关联。
+一般来说，当对象中只有一个方法时，这时使用闭包是更好的选择。来看一个例子：
+def adder(x): def wrapper(y): return x + y return wrapper adder5 = adder(5) adder5(10) # 输出 15 adder5(6) # 输出 11  这比用类来实现更优雅，此外装饰器也是基于闭包的一种应用场景。
+稍加深入 所有函数都有一个__closure__属性，如果这个函数是一个闭包的话，那么它返回的是一个由cell对象 组成的元组对象。cell对象的cell_contents属性就是闭包中的自由变量。
+&amp;gt;&amp;gt;&amp;gt; adder.__closure__ &amp;gt;&amp;gt;&amp;gt; adder5.__closure__ (&amp;lt;cell at 0x103075910: int object at 0x7fd251604518&amp;gt;,) &amp;gt;&amp;gt;&amp;gt; adder5.</description>
+    </item>
+    
+    <item>
+      <title>一文理解Python多重继承</title>
+      <link>https://ronaldzhao.top/posts/%E4%B8%80%E6%96%87%E7%90%86%E8%A7%A3python%E5%A4%9A%E9%87%8D%E7%BB%A7%E6%89%BF/</link>
+      <pubDate>Sat, 20 Apr 2019 22:19:59 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/%E4%B8%80%E6%96%87%E7%90%86%E8%A7%A3python%E5%A4%9A%E9%87%8D%E7%BB%A7%E6%89%BF/</guid>
+      <description>为什么要有继承？ 答：有了继承，子类就可以延用并扩展父类的功能，实现代码的复用，这是面向对象编程中一个重要的方式。
+又为什么要有多重继承？ 答：有时候有的子类需要继承多个父类的功能，所以就需要有多重继承了。比如蝙蝠不但属于哺乳类，又属于能飞的一类，所以蝙蝠可以直接继承两类的功能：
+class Mammal(object): def kind(slef): print(&#39;I am a mammal.&#39;) class Flyable(object): def ability(self): print(&#39;I can fly.&#39;) class Bat(Mammal, Flyable): pass bat = Bat() bat.kind() # 输出：I am a mammal. bat.ability() # 输出：I can fly.  多重继承存在的问题 钻石继承(菱形继承)问题：不相关的祖先类实现了同名方法所引起的问题。如：
+class A(object): def who_am_i(self): print(&#39;I am A.&#39;) class B(A): def who_am_i(self): print(&#39;I am B.&#39;) class C(A): def who_am_i(self): print(&#39;I am C.&#39;) class D(B, C): def who_am_i(self): print(&#39;I am D.&#39;) d1 = D() d1.</description>
+    </item>
+    
+    <item>
+      <title>一文理解Python装饰器</title>
+      <link>https://ronaldzhao.top/posts/%E4%B8%80%E6%96%87%E7%90%86%E8%A7%A3python%E8%A3%85%E9%A5%B0%E5%99%A8/</link>
+      <pubDate>Sat, 20 Apr 2019 22:14:01 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/%E4%B8%80%E6%96%87%E7%90%86%E8%A7%A3python%E8%A3%85%E9%A5%B0%E5%99%A8/</guid>
+      <description>原文链接: 理解 Python 装饰器看这一篇就够了
+ Python 装饰器是什么? 举个栗子:
+我们都知道内裤的主要功能是用来遮羞, 但是到了冬天它无法防风御寒. 咋办? 一个办法就是把内裤改造得又长又厚. 但同时又有个问题, 它本质上已经不是一条内裤了, 而成了长裤. 于是聪明的做法是在内裤外面再穿一条长裤. 这样内裤便还是内裤, 而且通过套在外面的长裤达到了保暖的作用. 装饰器就如同这里的长裤, 可以在不改变内裤的前提下增加额外的功能.
+正确理解 Python 装饰器前, 还要明白一件事: Python 中的函数和 C++, Java 中的函数不大一样. Python 中的函数可以像普通变量一样当作参数传递给另一个函数, 例如:
+def param(): print(&#39;this is function param()&#39;) def f(p): p() f()  Python 装饰器本质上就是一个 Python 函数或类, 它可以让其他函数或类在不改变代码的前提下增加额外的功能. Python 装饰器的返回值也是一个函数或类对象.
+Python 装饰器经常用于有切面需求的场景, 比如: 插入日志, 性能测试, 事务处理, 缓存, 权限校验等场景, Python 装饰器是解决这类问题的绝佳设计. 有了 Python 装饰器, 我们就可以抽离出大量与函数功能本身无关的雷同代码到装饰器中并继续重用. 概括地讲, Python 装饰器的作用就是在不改动现有对象的前提下为其增加功能.
+一个简单的例子:</description>
+    </item>
+    
+  </channel>
+</rss>

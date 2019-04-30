@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="author" content="Ronald Zhao">
+
+<meta name="description" content="">
+
+<title>functools.wraps装饰器的作用</title>
+<meta name="generator" content="Hugo 0.55.4" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
+<link  href="https://ronaldzhao.top//css/theme.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="page-container container-fluid">
+<div class="col-md-3 menu">
+    <nav class="col-md-3">
+    
+    <h3 class="home-link"><a href="/">Root</a></h3>
+    <div id="last-posts" class="open">
+        <h3 data-open="last-posts">Ronald Zhao&#39;s Blog - Most recent posts</h3>
+        <ul>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/">Win10全局配置pypi源</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/%E5%B0%86hugo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0github/">将Hugo博客部署到Github</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/functools.wraps%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8/">functools.wraps装饰器的作用</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/python%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/">Python变量的作用域</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/python%E9%9D%A2%E8%AF%95%E9%A2%98%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/">Python面试题收集整理</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E5%AE%89%E8%A3%85chocolatey%E5%92%8Cvim/">Win10安装Chocolatey和Vim</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/win10%E4%B8%8B%E5%AE%89%E8%A3%85mysql8.0.11.zip/">Win10下安装MySQL8.0.11</a></li>
+            
+            <li><a href="https://ronaldzhao.top/about/">About Me</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/yield_from/">yield from</a></li>
+            
+            <li><a href="https://ronaldzhao.top/posts/yield%E5%92%8Cgenerator/">yield和generator</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div id="tags" class="open">
+        <h3 data-open="tags">Tags</h3>
+        <ul class="tags">
+            
+            <li><a href="/tags/generator">generator</a></li>
+            
+            <li><a href="/tags/hugo">hugo</a></li>
+            
+            <li><a href="/tags/mysql">mysql</a></li>
+            
+            <li><a href="/tags/python">python</a></li>
+            
+            <li><a href="/tags/vim">vim</a></li>
+            
+            <li><a href="/tags/vs-code">vs-code</a></li>
+            
+            <li><a href="/tags/yield">yield</a></li>
+            
+        </ul>
+    </div>
+    
+
+    
+    <div id="categories" class="open">
+        <h3 data-open="categories">Categories</h3>
+        <ul class="categories">
+            
+            <li><a href="/categories/golang">golang</a></li>
+            
+            <li><a href="/categories/python">python</a></li>
+            
+            <li><a href="/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">开发环境</a></li>
+            
+            <li><a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></li>
+            
+            <li><a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98">面试题</a></li>
+            
+        </ul>
+    </div>
+    
+</nav>
+
+</div>
+<div class="col-md-9 content">
+
+<h1>functools.wraps装饰器的作用</h1>
+<h4>Published 04-20-2019 23:14:14</h4>
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
+<script>!function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+    if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = p + '://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+}(document, 'script', 'twitter-wjs');</script>
+
+<div class="fb-share-button" data-href="https://ronaldzhao.top/posts/functools.wraps%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8/" data-layout="button"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en-US/sdk.js#xfbml=1&version=v2.5";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<article>
+    
+
+<h2 id="对比测试">对比测试</h2>
+
+<p>先看一个未使用<code>functools.wraps</code>的装饰器:</p>
+
+<pre><code class="language-python">def time_consuming_deco(func):
+    &quot;&quot;&quot;
+    计算运行func函数所消耗的时间
+    &quot;&quot;&quot;
+    def wrapper(*args, **kwargs):
+        start = time.time()*1000
+        func(*args, **kwargs)
+        end = time.time()*1000  # 转换成毫秒
+        print('{0} time consuming: {1} ms'.format(func.__name__, end - start))
+    return wrapper
+
+</code></pre>
+
+<p>下面使用上面的装饰器:</p>
+
+<pre><code class="language-python">@time_consuming_deco
+def f():
+    for i in range(1000000):
+        pass
+
+f()
+print(&quot;f.__name__ :&quot;, f.__name__)
+</code></pre>
+
+<p>运行结果为:</p>
+
+<pre><code class="language-bash">f time consuming: 22.99853515625 ms
+f.__name__ : wrapper
+</code></pre>
+
+<p>再看一个使用了<code>functools.wraps</code>的装饰器:</p>
+
+<pre><code class="language-python">def time_consuming_deco(func):
+    &quot;&quot;&quot;
+    还是上面计算运行func函数所消耗的时间的装饰器,只不过是用使用了functools.wraps
+    &quot;&quot;&quot;
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()*1000
+        func(*args, **kwargs)
+        end = time.time()*1000  # 转换成毫秒
+        print('{0} time consuming: {1} ms'.format(func.__name__, end - start))
+    return wrapper
+
+</code></pre>
+
+<p>再次运行上面的测试程序结果如下:</p>
+
+<pre><code class="language-bash">f time consuming: 22.99853515625 ms
+f.__name__ : f
+</code></pre>
+
+<h2 id="小结">小结</h2>
+
+<p>通过使用<code>functools.wraps</code>可以避免自定义装饰器对所装饰函数造成的函数名影响,防止在后面需要使用函数名的时候造成混乱.</p>
+
+</article>
+
+
+
+</div>
+</div>
+<script src="https://ronaldzhao.top//js/theme.min.js" type="text/javascript"></script>
+
+
+</body>
+</html>
+

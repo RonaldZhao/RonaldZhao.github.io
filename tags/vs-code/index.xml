@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>VS Code on Ronald Zhao&#39;s Blog</title>
+    <link>https://ronaldzhao.top/tags/vs-code/</link>
+    <description>Recent content in VS Code on Ronald Zhao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 20 Apr 2019 22:24:23 +0800</lastBuildDate>
+    
+	<atom:link href="https://ronaldzhao.top/tags/vs-code/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用VSCode搭建Python开发环境</title>
+      <link>https://ronaldzhao.top/posts/%E4%BD%BF%E7%94%A8vscode%E6%90%AD%E5%BB%BApython%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Sat, 20 Apr 2019 22:24:23 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/%E4%BD%BF%E7%94%A8vscode%E6%90%AD%E5%BB%BApython%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+      <description>参考文章：How to use VS Code for your Python projects
+ 0. 安装 python 插件 不出意外的话就是popular中的第一名.
+1. 约定项目虚拟环境保存位置 个人约定为项目下的.venv目录.
+2. 全局安装flake8(代码提示) 执行pip install -U flake8.
+安装后windows中flake8.exe和你的python.exe在同一目录.
+3. 全局安装black(格式化代码)  为什么选择black：Auto formatters for Python
+ 执行pip install -U black.
+安装后windows中black.exe和你的python.exe在同一目录.
+配置好后格式化文件的快捷键是Alt+Shift+F.
+4. 修改settings.json文件  warning: 注意其中涉及到的目录如果不同要按照自己的修改.
+ { &amp;quot;files.autoSave&amp;quot;: &amp;quot;afterDelay&amp;quot;, &amp;quot;editor.renderWhitespace&amp;quot;: &amp;quot;boundary&amp;quot;, &amp;quot;workbench.iconTheme&amp;quot;: &amp;quot;vscode-icons&amp;quot;,// vscode-icons插件 &amp;quot;workbench.colorTheme&amp;quot;: &amp;quot;One Dark Pro&amp;quot;,// One Dark Pro主题 &amp;quot;python.pythonPath&amp;quot;: &amp;quot;${workspaceRoot}\\.venv\\Scripts\\python.exe&amp;quot;, &amp;quot;python.formatting.provider&amp;quot;: &amp;quot;black&amp;quot;, &amp;quot;python.formatting.blackPath&amp;quot;: &amp;quot;D:\\softwares\\Python36\\Scripts\\black.exe&amp;quot;, &amp;quot;python.formatting.blackArgs&amp;quot;: [&amp;quot;--line-length=80&amp;quot;], &amp;quot;editor.</description>
+    </item>
+    
+  </channel>
+</rss>

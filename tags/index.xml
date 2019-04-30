@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Ronald Zhao&#39;s Blog</title>
+    <link>https://ronaldzhao.top/tags/</link>
+    <description>Recent content in Tags on Ronald Zhao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 30 Apr 2019 15:18:26 +0800</lastBuildDate>
+    
+	<atom:link href="https://ronaldzhao.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>python</title>
+      <link>https://ronaldzhao.top/tags/python/</link>
+      <pubDate>Tue, 30 Apr 2019 15:18:26 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hugo</title>
+      <link>https://ronaldzhao.top/tags/hugo/</link>
+      <pubDate>Sun, 21 Apr 2019 20:58:10 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vim</title>
+      <link>https://ronaldzhao.top/tags/vim/</link>
+      <pubDate>Sat, 20 Apr 2019 23:07:44 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/tags/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>https://ronaldzhao.top/tags/mysql/</link>
+      <pubDate>Sat, 20 Apr 2019 23:04:43 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>yield</title>
+      <link>https://ronaldzhao.top/tags/yield/</link>
+      <pubDate>Sat, 20 Apr 2019 22:50:45 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/tags/yield/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>generator</title>
+      <link>https://ronaldzhao.top/tags/generator/</link>
+      <pubDate>Sat, 20 Apr 2019 22:46:34 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/tags/generator/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VS Code</title>
+      <link>https://ronaldzhao.top/tags/vs-code/</link>
+      <pubDate>Sat, 20 Apr 2019 22:24:23 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/tags/vs-code/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

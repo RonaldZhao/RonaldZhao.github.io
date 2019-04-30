@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on Ronald Zhao&#39;s Blog</title>
+    <link>https://ronaldzhao.top/tags/python/</link>
+    <description>Recent content in python on Ronald Zhao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 30 Apr 2019 15:18:26 +0800</lastBuildDate>
+    
+	<atom:link href="https://ronaldzhao.top/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Win10全局配置pypi源</title>
+      <link>https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/</link>
+      <pubDate>Tue, 30 Apr 2019 15:18:26 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/</guid>
+      <description>Steps cd %APPDATA% mkdir pip  新建文件pip.ini然后添加（以阿里云的源为例）：
+[global] index-url = https://mirrors.aliyun.com/pypi/simple/ [install] trusted-host=mirrors.aliyun.com  Done.</description>
+    </item>
+    
+    <item>
+      <title>functools.wraps装饰器的作用</title>
+      <link>https://ronaldzhao.top/posts/functools.wraps%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8/</link>
+      <pubDate>Sat, 20 Apr 2019 23:14:14 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/functools.wraps%E8%A3%85%E9%A5%B0%E5%99%A8%E7%9A%84%E4%BD%9C%E7%94%A8/</guid>
+      <description>对比测试 先看一个未使用functools.wraps的装饰器:
+def time_consuming_deco(func): &amp;quot;&amp;quot;&amp;quot; 计算运行func函数所消耗的时间 &amp;quot;&amp;quot;&amp;quot; def wrapper(*args, **kwargs): start = time.time()*1000 func(*args, **kwargs) end = time.time()*1000 # 转换成毫秒 print(&#39;{0} time consuming: {1} ms&#39;.format(func.__name__, end - start)) return wrapper  下面使用上面的装饰器:
+@time_consuming_deco def f(): for i in range(1000000): pass f() print(&amp;quot;f.__name__ :&amp;quot;, f.__name__)  运行结果为:
+f time consuming: 22.99853515625 ms f.__name__ : wrapper  再看一个使用了functools.wraps的装饰器:
+def time_consuming_deco(func): &amp;quot;&amp;quot;&amp;quot; 还是上面计算运行func函数所消耗的时间的装饰器,只不过是用使用了functools.wraps &amp;quot;&amp;quot;&amp;quot; @functools.wraps(func) def wrapper(*args, **kwargs): start = time.time()*1000 func(*args, **kwargs) end = time.</description>
+    </item>
+    
+    <item>
+      <title>Python变量的作用域</title>
+      <link>https://ronaldzhao.top/posts/python%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/</link>
+      <pubDate>Sat, 20 Apr 2019 23:13:12 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/python%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/</guid>
+      <description>全局变量 即，在函数之外(如果是嵌套函数则是最外层函数之外)或在全局范围内声明的变量，全局变量可以在当前模块的任意之处访问。举个例子：
+x = &#39;我是全局变量&#39; def outer(): def inner(): def inner_inner(): print(x) inner_inner() print(x) inner() print(x) outer()  输出如下：
+&amp;gt;&amp;gt;&amp;gt; outer() 我是全局变量 我是全局变量 我是全局变量  由此便引出了一个问题：当我想在函数内部修改全局变量的时候怎么办？先试试再说：
+x = &#39;我是全局变量&#39; def update_outer_x(): x = &#39;我被修改了&#39; print(x) update_outer_x() print(x)  然而你会得到如下结果：
+&amp;gt;&amp;gt;&amp;gt; update_outer_x() 我被修改了 &amp;gt;&amp;gt;&amp;gt; print(x) 我是全局变量  外部的x并没有被真正修改，函数update_outer_x内部的x实际上被定义成了一个局部变量，而并没有修改外部x的值，执行内部的print的时候输出的也只是函数内部的x，所以没有达到修改全局变量x的目的。
+由此便有了global关键字：
+x = &#39;我是全局变量&#39; def update_outer_x(): global x x = &#39;我被修改了&#39; print(x) update_outer_x() print(x)  执行结果如下：
+&amp;gt;&amp;gt;&amp;gt; update_outer_x() 我被修改了 &amp;gt;&amp;gt;&amp;gt; print(x) 我被修改了  因此通过在函数内部使用global关键字，达到了在函数内部修改全局变量的目的。</description>
+    </item>
+    
+    <item>
+      <title>Python面试题收集整理</title>
+      <link>https://ronaldzhao.top/posts/python%E9%9D%A2%E8%AF%95%E9%A2%98%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sat, 20 Apr 2019 23:10:55 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/python%E9%9D%A2%E8%AF%95%E9%A2%98%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/</guid>
+      <description>Q：python这么好，说说它的特性吧 A：
+ python是解释型语言。即：它不需要编译，变运行便捷式； python是动态类型化的。即：当声明变量的时候，无需指定变量的类型； python非常适合面向对象编程。即：它允许定义类以及组合和继承； python没有访问修饰符； python中函数是一等对象(第一类对象)。即：函数可以在运行时动态创建；函数可以赋值给变量；函数可以作为参数传递给函数；函数可以作为返回值从函数返回； python容易上手，编码效率高，但比编译型语言运行速度慢。幸运的是，python允许包含基于C的扩展，所以瓶颈可以被优化掉。  Q： python中对象的赋值、浅拷贝、深拷贝的区别 A：
+ 对象的赋值  python中对象的赋值实际上是简单的对象的引用。即：当创建一个对象并将其赋值给一个变量的时候，python并没有拷贝这个对象，只是简单的把这个对象的引用赋值给变量。
+&amp;gt;&amp;gt;&amp;gt; list1 = [1,2,3,4] &amp;gt;&amp;gt;&amp;gt; list2 = list1 &amp;gt;&amp;gt;&amp;gt; print(list1, id(list1)) [1, 2, 3, 4] 4552843656 &amp;gt;&amp;gt;&amp;gt; print(list2, id(list2)) [1, 2, 3, 4] 4552843656 &amp;gt;&amp;gt;&amp;gt; list1.append(5) &amp;gt;&amp;gt;&amp;gt; print(list1, id(list1)) [1, 2, 3, 4, 5] 4552843656 &amp;gt;&amp;gt;&amp;gt; print(list2, id(list2)) [1, 2, 3, 4, 5] 4552843656   浅拷贝  一般使用copy.copy()可以进行对象的浅拷贝。但对于对象中的元素，它仍然使用原始的引用。
+&amp;gt;&amp;gt;&amp;gt; import copy &amp;gt;&amp;gt;&amp;gt; list1 = [1,2,3,4, [5,6,7,8]] &amp;gt;&amp;gt;&amp;gt; print(list1, id(list1)) [1, 2, 3, 4, [5, 6, 7, 8]] 4322790536 &amp;gt;&amp;gt;&amp;gt; list2 = copy.</description>
+    </item>
+    
+    <item>
+      <title>使用VSCode搭建Python开发环境</title>
+      <link>https://ronaldzhao.top/posts/%E4%BD%BF%E7%94%A8vscode%E6%90%AD%E5%BB%BApython%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Sat, 20 Apr 2019 22:24:23 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/%E4%BD%BF%E7%94%A8vscode%E6%90%AD%E5%BB%BApython%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
+      <description>参考文章：How to use VS Code for your Python projects
+ 0. 安装 python 插件 不出意外的话就是popular中的第一名.
+1. 约定项目虚拟环境保存位置 个人约定为项目下的.venv目录.
+2. 全局安装flake8(代码提示) 执行pip install -U flake8.
+安装后windows中flake8.exe和你的python.exe在同一目录.
+3. 全局安装black(格式化代码)  为什么选择black：Auto formatters for Python
+ 执行pip install -U black.
+安装后windows中black.exe和你的python.exe在同一目录.
+配置好后格式化文件的快捷键是Alt+Shift+F.
+4. 修改settings.json文件  warning: 注意其中涉及到的目录如果不同要按照自己的修改.
+ { &amp;quot;files.autoSave&amp;quot;: &amp;quot;afterDelay&amp;quot;, &amp;quot;editor.renderWhitespace&amp;quot;: &amp;quot;boundary&amp;quot;, &amp;quot;workbench.iconTheme&amp;quot;: &amp;quot;vscode-icons&amp;quot;,// vscode-icons插件 &amp;quot;workbench.colorTheme&amp;quot;: &amp;quot;One Dark Pro&amp;quot;,// One Dark Pro主题 &amp;quot;python.pythonPath&amp;quot;: &amp;quot;${workspaceRoot}\\.venv\\Scripts\\python.exe&amp;quot;, &amp;quot;python.formatting.provider&amp;quot;: &amp;quot;black&amp;quot;, &amp;quot;python.formatting.blackPath&amp;quot;: &amp;quot;D:\\softwares\\Python36\\Scripts\\black.exe&amp;quot;, &amp;quot;python.formatting.blackArgs&amp;quot;: [&amp;quot;--line-length=80&amp;quot;], &amp;quot;editor.</description>
+    </item>
+    
+  </channel>
+</rss>

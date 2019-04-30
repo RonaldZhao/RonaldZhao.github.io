@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>面试题 on Ronald Zhao&#39;s Blog</title>
+    <link>https://ronaldzhao.top/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
+    <description>Recent content in 面试题 on Ronald Zhao&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 20 Apr 2019 23:10:55 +0800</lastBuildDate>
+    
+	<atom:link href="https://ronaldzhao.top/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Python面试题收集整理</title>
+      <link>https://ronaldzhao.top/posts/python%E9%9D%A2%E8%AF%95%E9%A2%98%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sat, 20 Apr 2019 23:10:55 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/python%E9%9D%A2%E8%AF%95%E9%A2%98%E6%94%B6%E9%9B%86%E6%95%B4%E7%90%86/</guid>
+      <description>Q：python这么好，说说它的特性吧 A：
+ python是解释型语言。即：它不需要编译，变运行便捷式； python是动态类型化的。即：当声明变量的时候，无需指定变量的类型； python非常适合面向对象编程。即：它允许定义类以及组合和继承； python没有访问修饰符； python中函数是一等对象(第一类对象)。即：函数可以在运行时动态创建；函数可以赋值给变量；函数可以作为参数传递给函数；函数可以作为返回值从函数返回； python容易上手，编码效率高，但比编译型语言运行速度慢。幸运的是，python允许包含基于C的扩展，所以瓶颈可以被优化掉。  Q： python中对象的赋值、浅拷贝、深拷贝的区别 A：
+ 对象的赋值  python中对象的赋值实际上是简单的对象的引用。即：当创建一个对象并将其赋值给一个变量的时候，python并没有拷贝这个对象，只是简单的把这个对象的引用赋值给变量。
+&amp;gt;&amp;gt;&amp;gt; list1 = [1,2,3,4] &amp;gt;&amp;gt;&amp;gt; list2 = list1 &amp;gt;&amp;gt;&amp;gt; print(list1, id(list1)) [1, 2, 3, 4] 4552843656 &amp;gt;&amp;gt;&amp;gt; print(list2, id(list2)) [1, 2, 3, 4] 4552843656 &amp;gt;&amp;gt;&amp;gt; list1.append(5) &amp;gt;&amp;gt;&amp;gt; print(list1, id(list1)) [1, 2, 3, 4, 5] 4552843656 &amp;gt;&amp;gt;&amp;gt; print(list2, id(list2)) [1, 2, 3, 4, 5] 4552843656   浅拷贝  一般使用copy.copy()可以进行对象的浅拷贝。但对于对象中的元素，它仍然使用原始的引用。
+&amp;gt;&amp;gt;&amp;gt; import copy &amp;gt;&amp;gt;&amp;gt; list1 = [1,2,3,4, [5,6,7,8]] &amp;gt;&amp;gt;&amp;gt; print(list1, id(list1)) [1, 2, 3, 4, [5, 6, 7, 8]] 4322790536 &amp;gt;&amp;gt;&amp;gt; list2 = copy.</description>
+    </item>
+    
+  </channel>
+</rss>
