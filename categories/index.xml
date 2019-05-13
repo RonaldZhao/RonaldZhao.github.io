@@ -6,19 +6,9 @@
     <description>Recent content in Categories on Ronald Zhao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 30 Apr 2019 15:18:26 +0800</lastBuildDate>
     
 	<atom:link href="https://ronaldzhao.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>开发环境</title>
-      <link>https://ronaldzhao.top/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
-      <pubDate>Tue, 30 Apr 2019 15:18:26 +0800</pubDate>
-      
-      <guid>https://ronaldzhao.top/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Golang</title>
@@ -30,7 +20,7 @@
     </item>
     
     <item>
-      <title>python</title>
+      <title>Python</title>
       <link>https://ronaldzhao.top/categories/python/</link>
       <pubDate>Sat, 20 Apr 2019 23:14:14 +0800</pubDate>
       
@@ -39,11 +29,11 @@
     </item>
     
     <item>
-      <title>面试题</title>
-      <link>https://ronaldzhao.top/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
-      <pubDate>Sat, 20 Apr 2019 23:10:55 +0800</pubDate>
+      <title>开发环境</title>
+      <link>https://ronaldzhao.top/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Tue, 30 Apr 2019 15:18:26 +0800</pubDate>
       
-      <guid>https://ronaldzhao.top/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/</guid>
+      <guid>https://ronaldzhao.top/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</guid>
       <description></description>
     </item>
     
@@ -53,6 +43,15 @@
       <pubDate>Sat, 20 Apr 2019 23:04:43 +0800</pubDate>
       
       <guid>https://ronaldzhao.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>面试题</title>
+      <link>https://ronaldzhao.top/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
+      <pubDate>Sat, 20 Apr 2019 23:10:55 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/</guid>
       <description></description>
     </item>
     
