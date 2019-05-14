@@ -8,7 +8,7 @@
 
 <meta name="description" content="">
 
-<title>Win10全局配置pypi源</title>
+<title>工具</title>
 <meta name="generator" content="Hugo 0.52" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
@@ -102,52 +102,15 @@
 </div>
 <div class="col-md-9 content">
 
-<h1>Win10全局配置pypi源</h1>
-<h4>Published 04-30-2019 15:18:26</h4>
 
-<a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
-<script>!function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-    if (!d.getElementById(id)) {
-        js = d.createElement(s);
-        js.id = id;
-        js.src = p + '://platform.twitter.com/widgets.js';
-        fjs.parentNode.insertBefore(js, fjs);
-    }
-}(document, 'script', 'twitter-wjs');</script>
-
-<div class="fb-share-button" data-href="https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/" data-layout="button"></div>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en-US/sdk.js#xfbml=1&version=v2.5";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<article>
+<div class="articles-list">
     
-
-<h2 id="steps">Steps</h2>
-
-<pre><code class="language-bash">cd %APPDATA%
-mkdir pip
-</code></pre>
-
-<p>新建文件<code>pip.ini</code>然后添加（以阿里云的源为例）：</p>
-
-<pre><code>[global]
-index-url = https://mirrors.aliyun.com/pypi/simple/
-
-[install]
-trusted-host=mirrors.aliyun.com
-</code></pre>
-
-<p>Done.</p>
-
-</article>
-
+    <article>
+        <h3><a href="https://ronaldzhao.top/posts/v2ray_client_config/">v2ray的客户端配置文件（Linux）</a> - 2019-05-14 23:40:28</h3>
+        { &quot;log&quot;: { &quot;loglevel&quot;: &quot;warning&quot;, &quot;access&quot;: &quot;/etc/v2ray/access.log&quot;, &quot;error&quot;: &quot;/etc/v2ray/error.log&quot; }, &quot;inbounds&quot;: [ { &quot;port&quot;: xxxx, &quot;protocol&quot;: &quot;socks&quot;, &quot;sniffing&quot;: { &quot;enabled&quot;: true, &quot;destOverride&quot;: [&quot;http&quot;, &quot;tls&quot;] }, &quot;settings&quot;: { &quot;auth&quot;: &quot;noauth&quot;, &quot;udp&quot;: true } } ], &quot;outbounds&quot;: [ { &quot;protocol&quot;: &quot;vmess&quot;, &quot;settings&quot;: { &quot;vnext&quot;: [ { &quot;address&quot;: &quot;xx.xxx.xx.xx&quot;, &quot;port&quot;: xxxx, &quot;users&quot;: [ { &quot;id&quot;: &quot;xxxxxxxxxxxxxxxxxxxxxxxxx&quot;, &quot;alterId&quot;: xx } ] } ] }, &quot;mux&quot;: {&quot;enabled&quot;: true} }, { &quot;protocol&quot;: &quot;freedom&quot;, &quot;settings&quot;: {}, &quot;tag&quot;: &quot;direct&quot;//如果要使用路由，这个 tag 是一定要有的，在这里 direct 就是 freedom 的一个标号，在路由中说 direct V2Ray 就知道是这里的 freedom 了 }, { &quot;protocol&quot;: &quot;blackhole&quot;, &quot;settings&quot;: {}, &quot;tag&quot;: &quot;adblock&quot;//同样的，这个 tag 也是要有的，在路由中说 adblock 就知道是这里的 blackhole（黑洞） 了 } ], &quot;routing&quot;: { &quot;domainStrategy&quot;: &quot;IPOnDemand&quot;, &quot;rules&quot;: [ { &quot;type&quot;: &quot;field&quot;, &quot;outboundTag&quot;: &quot;direct&quot;, &quot;domain&quot;: [&quot;geosite:cn&quot;]// 中国大陆主流网站的域名 }, { &quot;type&quot;: &quot;field&quot;, &quot;outboundTag&quot;: &quot;direct&quot;, &quot;ip&quot;: [ &quot;geoip:cn&quot;, // 中国大陆的 IP &quot;geoip:private&quot; // 私有地址 IP，如路由器等 ] } ] } }  PS：使用此配置文件可直接开全局模式，因为文件最后的routing会自动判断是否需要FQ。
+    </article>
+    
+</div>
 
 
 </div>

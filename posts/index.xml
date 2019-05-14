@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Ronald Zhao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 30 Apr 2019 15:18:26 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 May 2019 23:40:28 +0800</lastBuildDate>
     
 	<atom:link href="https://ronaldzhao.top/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>v2ray的客户端配置文件（Linux）</title>
+      <link>https://ronaldzhao.top/posts/v2ray_client_config/</link>
+      <pubDate>Tue, 14 May 2019 23:40:28 +0800</pubDate>
+      
+      <guid>https://ronaldzhao.top/posts/v2ray_client_config/</guid>
+      <description>{ &amp;quot;log&amp;quot;: { &amp;quot;loglevel&amp;quot;: &amp;quot;warning&amp;quot;, &amp;quot;access&amp;quot;: &amp;quot;/etc/v2ray/access.log&amp;quot;, &amp;quot;error&amp;quot;: &amp;quot;/etc/v2ray/error.log&amp;quot; }, &amp;quot;inbounds&amp;quot;: [ { &amp;quot;port&amp;quot;: xxxx, &amp;quot;protocol&amp;quot;: &amp;quot;socks&amp;quot;, &amp;quot;sniffing&amp;quot;: { &amp;quot;enabled&amp;quot;: true, &amp;quot;destOverride&amp;quot;: [&amp;quot;http&amp;quot;, &amp;quot;tls&amp;quot;] }, &amp;quot;settings&amp;quot;: { &amp;quot;auth&amp;quot;: &amp;quot;noauth&amp;quot;, &amp;quot;udp&amp;quot;: true } } ], &amp;quot;outbounds&amp;quot;: [ { &amp;quot;protocol&amp;quot;: &amp;quot;vmess&amp;quot;, &amp;quot;settings&amp;quot;: { &amp;quot;vnext&amp;quot;: [ { &amp;quot;address&amp;quot;: &amp;quot;xx.xxx.xx.xx&amp;quot;, &amp;quot;port&amp;quot;: xxxx, &amp;quot;users&amp;quot;: [ { &amp;quot;id&amp;quot;: &amp;quot;xxxxxxxxxxxxxxxxxxxxxxxxx&amp;quot;, &amp;quot;alterId&amp;quot;: xx } ] } ] }, &amp;quot;mux&amp;quot;: {&amp;quot;enabled&amp;quot;: true} }, { &amp;quot;protocol&amp;quot;: &amp;quot;freedom&amp;quot;, &amp;quot;settings&amp;quot;: {}, &amp;quot;tag&amp;quot;: &amp;quot;direct&amp;quot;//如果要使用路由，这个 tag 是一定要有的，在这里 direct 就是 freedom 的一个标号，在路由中说 direct V2Ray 就知道是这里的 freedom 了 }, { &amp;quot;protocol&amp;quot;: &amp;quot;blackhole&amp;quot;, &amp;quot;settings&amp;quot;: {}, &amp;quot;tag&amp;quot;: &amp;quot;adblock&amp;quot;//同样的，这个 tag 也是要有的，在路由中说 adblock 就知道是这里的 blackhole（黑洞） 了 } ], &amp;quot;routing&amp;quot;: { &amp;quot;domainStrategy&amp;quot;: &amp;quot;IPOnDemand&amp;quot;, &amp;quot;rules&amp;quot;: [ { &amp;quot;type&amp;quot;: &amp;quot;field&amp;quot;, &amp;quot;outboundTag&amp;quot;: &amp;quot;direct&amp;quot;, &amp;quot;domain&amp;quot;: [&amp;quot;geosite:cn&amp;quot;]// 中国大陆主流网站的域名 }, { &amp;quot;type&amp;quot;: &amp;quot;field&amp;quot;, &amp;quot;outboundTag&amp;quot;: &amp;quot;direct&amp;quot;, &amp;quot;ip&amp;quot;: [ &amp;quot;geoip:cn&amp;quot;, // 中国大陆的 IP &amp;quot;geoip:private&amp;quot; // 私有地址 IP，如路由器等 ] } ] } }  PS：使用此配置文件可直接开全局模式，因为文件最后的routing会自动判断是否需要FQ。</description>
+    </item>
     
     <item>
       <title>Win10全局配置pypi源</title>

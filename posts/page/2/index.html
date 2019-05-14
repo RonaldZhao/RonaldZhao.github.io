@@ -28,6 +28,8 @@
         <h3 data-open="last-posts">Ronald Zhao&#39;s Blog - Most recent posts</h3>
         <ul>
             
+            <li><a href="https://ronaldzhao.top/posts/v2ray_client_config/">v2ray的客户端配置文件（Linux）</a></li>
+            
             <li><a href="https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/">Win10全局配置pypi源</a></li>
             
             <li><a href="https://ronaldzhao.top/posts/%E5%B0%86hugo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0github/">将Hugo博客部署到Github</a></li>
@@ -46,8 +48,6 @@
             
             <li><a href="https://ronaldzhao.top/posts/yield_from/">yield from</a></li>
             
-            <li><a href="https://ronaldzhao.top/posts/yield%E5%92%8Cgenerator/">yield和generator</a></li>
-            
         </ul>
     </div>
     
@@ -64,6 +64,8 @@
             <li><a href="/tags/mysql">mysql</a></li>
             
             <li><a href="/tags/python">python</a></li>
+            
+            <li><a href="/tags/v2ray">v2ray</a></li>
             
             <li><a href="/tags/vim">vim</a></li>
             
@@ -83,6 +85,8 @@
             <li><a href="/categories/golang">golang</a></li>
             
             <li><a href="/categories/python">python</a></li>
+            
+            <li><a href="/categories/%E5%B7%A5%E5%85%B7">工具</a></li>
             
             <li><a href="/categories/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">开发环境</a></li>
             
@@ -148,6 +152,11 @@ def time_consuming_deco(func): &quot;&quot;&quot; 还是上面计算运行func�
         <h3><a href="https://ronaldzhao.top/posts/win10%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEpypi%E6%BA%90/">Win10全局配置pypi源</a> - 2019-04-30 15:18:26</h3>
         Steps cd %APPDATA% mkdir pip  新建文件pip.ini然后添加（以阿里云的源为例）：
 [global] index-url = https://mirrors.aliyun.com/pypi/simple/ [install] trusted-host=mirrors.aliyun.com  Done.
+    </article>
+    
+    <article>
+        <h3><a href="https://ronaldzhao.top/posts/v2ray_client_config/">v2ray的客户端配置文件（Linux）</a> - 2019-05-14 23:40:28</h3>
+        { &quot;log&quot;: { &quot;loglevel&quot;: &quot;warning&quot;, &quot;access&quot;: &quot;/etc/v2ray/access.log&quot;, &quot;error&quot;: &quot;/etc/v2ray/error.log&quot; }, &quot;inbounds&quot;: [ { &quot;port&quot;: xxxx, &quot;protocol&quot;: &quot;socks&quot;, &quot;sniffing&quot;: { &quot;enabled&quot;: true, &quot;destOverride&quot;: [&quot;http&quot;, &quot;tls&quot;] }, &quot;settings&quot;: { &quot;auth&quot;: &quot;noauth&quot;, &quot;udp&quot;: true } } ], &quot;outbounds&quot;: [ { &quot;protocol&quot;: &quot;vmess&quot;, &quot;settings&quot;: { &quot;vnext&quot;: [ { &quot;address&quot;: &quot;xx.xxx.xx.xx&quot;, &quot;port&quot;: xxxx, &quot;users&quot;: [ { &quot;id&quot;: &quot;xxxxxxxxxxxxxxxxxxxxxxxxx&quot;, &quot;alterId&quot;: xx } ] } ] }, &quot;mux&quot;: {&quot;enabled&quot;: true} }, { &quot;protocol&quot;: &quot;freedom&quot;, &quot;settings&quot;: {}, &quot;tag&quot;: &quot;direct&quot;//如果要使用路由，这个 tag 是一定要有的，在这里 direct 就是 freedom 的一个标号，在路由中说 direct V2Ray 就知道是这里的 freedom 了 }, { &quot;protocol&quot;: &quot;blackhole&quot;, &quot;settings&quot;: {}, &quot;tag&quot;: &quot;adblock&quot;//同样的，这个 tag 也是要有的，在路由中说 adblock 就知道是这里的 blackhole（黑洞） 了 } ], &quot;routing&quot;: { &quot;domainStrategy&quot;: &quot;IPOnDemand&quot;, &quot;rules&quot;: [ { &quot;type&quot;: &quot;field&quot;, &quot;outboundTag&quot;: &quot;direct&quot;, &quot;domain&quot;: [&quot;geosite:cn&quot;]// 中国大陆主流网站的域名 }, { &quot;type&quot;: &quot;field&quot;, &quot;outboundTag&quot;: &quot;direct&quot;, &quot;ip&quot;: [ &quot;geoip:cn&quot;, // 中国大陆的 IP &quot;geoip:private&quot; // 私有地址 IP，如路由器等 ] } ] } }  PS：使用此配置文件可直接开全局模式，因为文件最后的routing会自动判断是否需要FQ。
     </article>
     
 </div>
