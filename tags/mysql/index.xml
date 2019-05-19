@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Mysql on Ronald Zhao&#39;s Blog</title>
+    <title>MySQL on Ronald Zhao&#39;s Blog</title>
     <link>https://ronaldzhao.top/tags/mysql/</link>
-    <description>Recent content in Mysql on Ronald Zhao&#39;s Blog</description>
+    <description>Recent content in MySQL on Ronald Zhao&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 20 Apr 2019 23:04:43 +0800</lastBuildDate>
